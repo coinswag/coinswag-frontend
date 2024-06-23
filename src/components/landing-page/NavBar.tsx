@@ -4,7 +4,7 @@ function NavBar() {
       <span className="flex justify-center items-center text-primary font-black uppercase text-xl">
          Coinswag 
       </span>
-      <div className="[&>a]:text-sm gap-6 flex items-center">
+      <div className="[&>a]:text-sm gap-10 flex items-center">
          <a href="">Home</a>
          <a href="">Merchandise</a>
          <a href="">About</a>
