@@ -9,11 +9,23 @@
 }
 
 .test-color {
-  color: #d8d2ff;
+  color: #d5cffd;
   
 }
 
 .clip__path {
   clip-path: polygon(0 0, 85% 0, 100% 100%, 0 100%);
 
+}
+
+.shadow-custom {
+  box-shadow: 0 1rem 1.5rem #1f1f1f91;
+}
+
+.footer__grid {
+  grid-template-columns: repeat(3, 1fr);
+  display: grid;
+  width: 80%;
+  border: 1px solid red;
+  margin: 0 auto;
 }

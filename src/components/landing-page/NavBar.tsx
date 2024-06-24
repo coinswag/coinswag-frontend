@@ -1,6 +1,6 @@
 function NavBar() {
 	return (
-		<nav className="fixed top-0 left-0 h-[10vh] flex justify-between items-center w-full px-8">
+		<nav className="fixed top-0 left-0 h-[10vh] flex justify-between items-center w-full px-8 bg-white shadow-xl z-10">
 			<span className="flex justify-center items-center text-primary font-black uppercase text-xl">
 				Coinswag
 			</span>
