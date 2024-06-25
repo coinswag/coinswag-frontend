@@ -9,6 +9,7 @@ module.exports = {
   ],
   prefix: "",
   theme: {
+    
     container: {
       center: true,
       padding: "2rem",
@@ -17,6 +18,12 @@ module.exports = {
       },
     },
     extend: {
+      fontFamily: {
+        raleway: ["Raleway"]
+      },
+      colors: {
+        primary: "#4629FA"
+      },
       keyframes: {
         "accordion-down": {
           from: { height: "0" },

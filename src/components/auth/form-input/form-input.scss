@@ -1,0 +1,42 @@
+.form__input {
+	position: relative;
+
+	& label {
+		display: block;
+		color: rgb(182, 182, 182);
+		font-size: 0.75rem;
+		margin: 1.4rem 0 0.7rem 0;
+		text-transform: capitalize;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	}
+
+	& input {
+		height: 2.7rem;
+		text-indent: 1.2rem;
+		width: 100%;
+		border-radius: 0.3rem;
+		border: 2px solid #c2bbbb;
+
+		&::placeholder {
+			color: rgb(192, 191, 191);
+			display: none;
+         text-transform: capitalize;
+		}
+	}
+   
+   & textarea {
+      width: 100%;
+      border-radius: 0.3rem;
+		border: 2px solid #c2bbbb;
+      padding: .5rem;
+      resize: none;
+      height: 7.5rem;
+      max-height: 10rem;
+      
+      &::placeholder {
+         color: rgb(192, 191, 191);
+         text-transform: capitalize;
+			display: none;
+		}
+   }
+}

@@ -3,10 +3,10 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 
 import DashboardLayout from "./pages/DashboardLayout";
-import AuthLayout from "./pages/AuthLayout";
-import Login from "./pages/Login";
+import AuthLayout from "./pages/auth/auth-layout/AuthLayout";
+import Login from "./pages/auth/auth-section/Login";
 import Register from "./pages/Register";
-import { Wagmi } from "./wagmi";
+import { Wagmi } from "./providers/wagmi";
 
 const router = createBrowserRouter([
 	{
