@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
-import OnchainProviders from "./components/onchainkit-provider";
+import { Wagmi } from "./wagmi";
 
 const router = createBrowserRouter([
   {
@@ -13,9 +13,9 @@ const router = createBrowserRouter([
 function App() {
   return (
     <Fragment>
-      <OnchainProviders>
+      <Wagmi>
         <RouterProvider router={router} />
-      </OnchainProviders>
+      </Wagmi>
     </Fragment>
   );
 }
