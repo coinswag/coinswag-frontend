@@ -1,10 +1,12 @@
 import { Fragment } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
+
 import DashboardLayout from "./pages/DashboardLayout";
 import AuthLayout from "./pages/AuthLayout";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import { Wagmi } from "./wagmi";
 
 const router = createBrowserRouter([
 	{
@@ -33,8 +35,10 @@ const router = createBrowserRouter([
 function App() {
 	return (
 		<Fragment>
-			<RouterProvider router={router} />
-		</Fragment>
+      <Wagmi>
+        <RouterProvider router={router} />
+      </Wagmi>
+    </Fragment>
 	);
 }
 
