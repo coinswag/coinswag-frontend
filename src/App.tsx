@@ -1,21 +1,23 @@
-import { Fragment } from 'react';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import LandingPage from './pages/LandingPage';
+import { Fragment } from "react";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import LandingPage from "./pages/LandingPage";
+import OnchainProviders from "./components/onchainkit-provider";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <LandingPage />
-  }
-])
+    element: <LandingPage />,
+  },
+]);
 
 function App() {
-
   return (
     <Fragment>
-      <RouterProvider router={router} />
+      <OnchainProviders>
+        <RouterProvider router={router} />
+      </OnchainProviders>
     </Fragment>
-  ) 
+  );
 }
 
-export default App
+export default App;
