@@ -4,7 +4,7 @@ function Templates() {
 			<h1 className="text-3xl font-bold text-center mb-4">
 				Explore our Templates
 			</h1>
-			<p className="text-center text-xl">
+			<p className="text-center text-xl mb-5">
 				Use our expert designed templates,fully customized to <br /> suite
 				your needs
 			</p>

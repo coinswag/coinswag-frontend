@@ -1,0 +1,16 @@
+
+.eye__icon{
+   position: absolute;
+   transform: translateY(50%);
+   right: 1.7rem;
+   display: grid;
+   place-items: center;
+   font-size: 1.1rem;
+   height: 1.4rem;
+   cursor: pointer;
+   color: rgb(179, 179, 179);
+   border: none;
+   bottom: calc(2.7rem/2)  ;
+
+   transition: 0.5s all ease;
+}
