@@ -19,7 +19,8 @@ module.exports = {
     },
     extend: {
       gridTemplateColumns: {
-        chart_container: "60% 40%" 
+        chart_container: "65% 35%",
+        customer_card: "35% 20% 15% 10% 20%" 
       },
       fontFamily: {
         raleway: ["Raleway"]

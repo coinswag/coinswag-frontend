@@ -43,7 +43,7 @@ function FormInput(props: FormProps) {
 				<input
 					placeholder={placeholder || ""}
 					onChange={handleChange}
-					type={type}
+					type={visibility.type}
 					name={name}
 					{...otherProps}
 				

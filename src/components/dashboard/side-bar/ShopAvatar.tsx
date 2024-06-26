@@ -1,17 +1,20 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/src/components/ui/avatar";
-
 type AvatarProps = {
-   image?: string;
-   initial: string;
-}
+	image?: string;
+	initial: string;
+	backgroundColor: string;
+	color: string;
+};
 
 function ShopAvatar(props: AvatarProps) {
-   // const initials = props.initial[0]
+	// const initials = props.initial[0]
 	return (
-		<Avatar>
-			<AvatarImage src={props.image} />
-			<AvatarFallback className=" bg-primary font-extrabold text-white">{props.initial}</AvatarFallback>
-		</Avatar>
+		<div className="w-8 h-8 rounded-full overflow-hidden flex justify-center items-center">
+			{props.image ? (
+				<img src={props.image} alt="" />
+			) : (
+				<span style={{backgroundColor: props.backgroundColor, color: props.color}} className="h-full w-full flex justify-center items-center font-bold">{props.initial}</span>
+			)}
+		</div>
 	);
 }
 export default ShopAvatar;
