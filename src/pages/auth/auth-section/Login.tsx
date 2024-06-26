@@ -67,6 +67,7 @@ function Login() {
 					body: JSON.stringify({
 						email: formalUser.email,
 						password: formalUser.password,
+						type: "local"
 					}),
 				}
 			);
@@ -135,12 +136,8 @@ function Login() {
 	};
 	return (
 			<div className="auth__modal">
-				<button className="cancel__btn" onClick={handleClick}>
-					<img src="/icons/cancel.svg" alt="" />
-				</button>
 				<div className="logo__container">
-					<img src="/icons/logo.svg" />
-					<p>Medix</p>
+					coinswag
 				</div>
 				<form onSubmit={handelSubmit}>
 					<FormInput

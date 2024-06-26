@@ -58,6 +58,44 @@
 	}
 
    .testimony {
-      
+      background-color: white;
+		// width: 70%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding: 2rem 2rem;
+		border-bottom: 5px solid #ff5fdc;
+		box-shadow: 0 1rem 1rem #11111144;
+
+		.shop__details {
+			display: flex;
+			align-items: center;
+			gap: .7rem;
+			margin-top: 1rem;
+		}
+
+		h2 {
+			font-weight: 700;
+			color: #2c2c2c;
+		}
+
+		p {
+			font-size: .8rem;
+			color: gray;
+		}
+
+		.initials {
+			$size: 2.8rem;
+			width: $size;
+			height: $size;
+			border-radius: 50%;
+			background-color: #3d5ff7;
+			font-size: 1.3rem;
+			color: #ffffff;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			font-weight: 600;
+		}
    }
 }

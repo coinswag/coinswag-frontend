@@ -103,19 +103,13 @@ function Register() {
     }
   };
 
-  const handleCancel = () => {
-    navigate("/");
-  };
+
 
   return (
       <div className="auth__modal">
-        <button className="cancel__btn" onClick={handleCancel}>
-          <img src="/icons/cancel.svg" alt="" />
-        </button>
         <div className="logo__container">
-          <img src="/icons/logo.svg" />
-          <p>Medix</p>
-        </div>
+					coinswag
+				</div>
         <form onSubmit={handelSubmit}>
           <FormInput
             name="name"
