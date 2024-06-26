@@ -55,7 +55,12 @@ function NewStore() {
 		e.preventDefault();
 		setLoading(true);
 		try {
-			const result = await postData("/store", newStore)
+      const reqBody = JSON.stringify({
+        name: newStore.name,
+        url: `${newStore.name}.coinswag.shop`
+      })
+			const result = await postData("/store", reqBody);
+      console.log(result)
 
 			showToast.success("Store created Sucessfully");
 			navigate("/dashboard");
@@ -69,43 +74,8 @@ function NewStore() {
 		}
 	};
 
-	const loginWithGoogle = async () => {
-		setLoading(true);
-		try {
-			const userDetails = await handleGoogleAuth();
-			const resp = await fetch(
-				`${import.meta.env.VITE_BASE_URL}/auth/login`,
-				{
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify({
-						...userDetails,
-						username: userDetails?.displayName,
-						type: "google",
-					}),
-				}
-			);
-			const result = (await resp.json()) as LoginResponse;
-
-			if (!resp.ok) {
-				console.log(result);
-				throw new Error(result.message);
-			}
-			console.log(result);
-
-			setCurrentUser(result.data);
-			navigate("/dashboard");
-			showToast.success("Welcome Back");
-		} catch (error) {
-			if (error instanceof FirebaseError) {
-				console.log(error.message);
-				showToast.error(error.message);
-			}
-		} finally {
-			setLoading(false);
-		}
+	const connectWallet = async () => {
+	//code here
 	};
 	return (
 		<div className="auth__modal">
@@ -131,18 +101,19 @@ function NewStore() {
 					handleChange={handleChange}
 					value={newStore.name}
 					required
-					placeholder=".coinswag.shop"
+          disabled
+					text=".coinswag.shop"
 				/>
         <div className="social">
 					
-					<button onClick={loginWithGoogle} type="button">
+					<button onClick={connectWallet} type="button">
           <img className="invert-[.3]" src="/icons/new-wallet.svg" alt="" />
           <p className="text-gray-900">Connect wallet</p>
 					</button>
 				</div>
 				<button className="submit__btn">
 					{" "}
-					{loading ? <Loader /> : "Submit"}
+					{loading ? <Loader /> : "Create Shop"}
 				</button>
 
 			</form>

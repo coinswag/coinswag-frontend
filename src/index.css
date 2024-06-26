@@ -5,10 +5,27 @@
 @tailwind utilities;
 
 * {
-  font-family: "Raleway";
   box-sizing: border-box;
   margin: 0;
    padding: 0;
+   font-family: 'Segoe UI';
+
+   .landing__page * {
+    font-family: "Raleway";
+   }
+
+   .auth__layout * {
+    font-family: "Raleway";
+   }
+
+   .dashboard__layout * {
+    font-family: "Manrope";
+   }
+}
+
+@font-face {
+  font-family: "Manrope";
+  src: url("/fonts/manrope.ttf");
 }
 
 .test-color {

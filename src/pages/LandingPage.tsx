@@ -9,7 +9,7 @@ import Footer from "../components/landing-page/Footer"
 
 function LandingPage() {
   return (
-    <div>
+    <div className="landing__page">
       <NavBar />
       <Hero />
       <Features />

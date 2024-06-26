@@ -1,6 +1,6 @@
-import Sidebar from "../../../components/dashboard/Sidebar";
+import SideBar from "@/src/components/dashboard/side-bar/SideBar";
 import { Navigate, Outlet, useNavigate } from "react-router-dom";
-import TopNav from "../../../components/dashboard/TopNav";
+import TopNav from "../../../components/dashboard/top-nav/TopNav";
 import "./style.scss";
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
@@ -10,7 +10,7 @@ import useCurrentUser from "../../../hooks/useCurrentUser";
 import Loader from "../../../components/loader/linear-loader/Loader";
 
 function DashboardLayout() {
-  const token = Cookies.get("doctor-token");
+  const token = Cookies.get("coinswag-token");
   const [isLoading, setIsLoading] = useState(false);
 
 
@@ -63,7 +63,7 @@ function DashboardLayout() {
     return (
       <div className="dashboard__layout">
         <TopNav />
-        <Sidebar />
+        <SideBar />
         <div className="dashboard__outlet">
           <Outlet />
         </div>

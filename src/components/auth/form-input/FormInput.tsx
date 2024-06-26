@@ -16,6 +16,7 @@ export type FormProps = {
 	required: boolean;
 	placeholder?: string;
 	disabled?: true;
+	text?: string;
 };
 
 function FormInput(props: FormProps) {
@@ -45,6 +46,7 @@ function FormInput(props: FormProps) {
 					type={type}
 					name={name}
 					{...otherProps}
+				
 				/>
 			) : (
 				<textarea
@@ -62,7 +64,7 @@ function FormInput(props: FormProps) {
 				/>
 			)}
 
-			
+			{otherProps.text && <span className='absolute translate-y-1/2 right-[1.7rem] text-gray-400'>{otherProps.text}</span>}
 
 		
 

@@ -77,7 +77,7 @@ function Login() {
 			if (!resp.ok) {
 				return showToast.error(result.message);
 			}
-			Cookie.set("doctor-token", result.data.accessToken, {
+			Cookie.set("coinswag-token", result.data.accessToken, {
 				expires: 1,
 				secure: true,
 				sameSite: "strict",
