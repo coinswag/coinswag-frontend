@@ -13,7 +13,7 @@ function TopNav() {
   return (
     <nav className="dash__nav">
       <div className="logo__container">coinswag</div>
-      <h1>Overview</h1>
+      <h1>My Sweatr Shop</h1>
       <UserOptions />
 
       <button onClick={() => setSideBar(!sideBar)} className="menu__btn">

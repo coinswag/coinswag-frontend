@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
-
+import Home from "./pages/dashboard/Home";
 import DashboardLayout from "./pages/dashboard/dashboard-layout/DashboardLayout";
 import AuthLayout from "./pages/auth/auth-layout/AuthLayout";
 import Login from "./pages/auth/auth-section/Login";
@@ -21,7 +21,7 @@ const router = createBrowserRouter([
 		children: [
 			{
 				index: true,
-				element: <div />
+				element: <Home />
 			}
 		]
 	},

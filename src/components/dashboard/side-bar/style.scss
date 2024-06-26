@@ -52,14 +52,33 @@
 
   .logout__container {
     margin-top: auto;
-    border-top: 1px solid #bababa81;
+
+    .shop__details {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+      padding-left: 2.5rem;
+      margin: 1rem 0;
+      
+      h2 {
+        
+      }
+
+      p {
+        font-family: "Raleway";
+      }
+
+      img {
+        filter: invert(10%) sepia(98%) saturate(7486%) hue-rotate(249deg) brightness(88%) contrast(145%);
+      }
+    }
   }
 
   .sidebar__item {
      display: flex;
      align-items: center;
      gap: .6rem;
-     padding: .8rem 0 .8rem 2.5rem;
+     padding: .95rem 0 .95rem 2.5rem;
      text-decoration: none;
      color: gray;
      border-radius: 0 1.3rem 1.3rem 0;
