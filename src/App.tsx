@@ -6,7 +6,7 @@ import DashboardLayout from "./pages/dashboard/dashboard-layout/DashboardLayout"
 import AuthLayout from "./pages/auth/auth-layout/AuthLayout";
 import Login from "./pages/auth/auth-section/Login";
 import Register from "./pages/auth/auth-section/Register";
-import { Wagmi } from "./providers/wagmi";
+import OnchainProviders from "./providers/onchainkig-provider";
 import { Toaster } from "react-hot-toast";
 import NewStore from "./pages/auth/auth-section/NewStore";
 
@@ -45,14 +45,14 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-	return (
-		<Fragment>
-      <Wagmi>
+  return (
+    <Fragment>
+      <OnchainProviders>
 			<Toaster />
         <RouterProvider router={router} />
-      </Wagmi>
+      </OnchainProviders>
     </Fragment>
-	);
+  );
 }
 
 export default App;
