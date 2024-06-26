@@ -8,16 +8,18 @@ import { ChangeEventHandler } from 'react';
 export type FormProps = {
 	name: string;
 	handleChange: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
-	label?: boolean;
+	label?: string;
 	id?: HTMLInputTypeAttribute;
 	type: HTMLInputTypeAttribute;
 	value: string | ReadonlyArray<string> | number;
 	eyeicon?: boolean;
 	required: boolean;
+	placeholder?: string;
+	disabled?: true;
 };
 
 function FormInput(props: FormProps) {
-	const { name, label, eyeicon, type, handleChange, ...otherProps } = props;
+	const { name, label, eyeicon, type, handleChange, placeholder, ...otherProps } = props;
 	const [visibility, setVisibility] = useState({
 		type: type,
 		isShown: false,
@@ -34,19 +36,19 @@ function FormInput(props: FormProps) {
 
 	return (
 		<div className="form__input">
-			{label && <label htmlFor={name}>{name}</label>}
+			{label && <label htmlFor={name}>{label}</label>}
 
 			{otherProps.id !== 'message' ? (
 				<input
-					placeholder={label ? '' : name}
+					placeholder={placeholder || ""}
 					onChange={handleChange}
-					type={visibility.type}
+					type={type}
 					name={name}
 					{...otherProps}
 				/>
 			) : (
 				<textarea
-					placeholder={label ? '' : name}
+				placeholder={placeholder || ""}
 					onChange={handleChange}
 					name={name}
 					{...otherProps}
@@ -59,6 +61,11 @@ function FormInput(props: FormProps) {
 					handleClick={tooglePassword}
 				/>
 			)}
+
+			
+
+		
+
 		</div>
 	);
 }

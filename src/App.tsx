@@ -8,6 +8,7 @@ import Login from "./pages/auth/auth-section/Login";
 import Register from "./pages/auth/auth-section/Register";
 import OnchainProviders from "./providers/onchainkig-provider";
 // import { Toaster } from "react-hot-toast";
+import NewStore from "./pages/auth/auth-section/NewStore";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/new-store",
+        element: <NewStore />,
       },
     ],
   },

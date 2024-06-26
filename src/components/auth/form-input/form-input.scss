@@ -12,15 +12,21 @@
 
 	& input {
 		height: 2.7rem;
-		text-indent: 1.2rem;
+		padding: 0 1.2rem;
 		width: 100%;
 		border-radius: 0.3rem;
 		border: 2px solid #c2bbbb;
+		font-size: .9rem;
+
+		&:disabled {
+			color: rgb(192, 191, 191);
+		}
 
 		&::placeholder {
 			color: rgb(192, 191, 191);
-			display: none;
-         text-transform: capitalize;
+			// display: none;
+         // text-transform: capitalize;
+			text-align: right;
 		}
 	}
    
