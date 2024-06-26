@@ -8,7 +8,9 @@ import showToast from "../../../utils/showToast";
 import Loader from "../../../components/loader/circle-loader/Loader";
 import handleGoogleAuth from "../../../firebase/firebase.google";
 import { FirebaseError } from "firebase/app";
-import Cookie from "js-cookie";
+
+
+import usePost from "../../../hooks/usePost";
 
 export interface LoginResponse {
 	success: boolean;
@@ -26,29 +28,25 @@ export interface LoginResponse {
 	message: string;
 }
 
-function Login() {
+function NewStore() {
 	const navigate = useNavigate();
 	const [loading, setLoading] = useState(false);
 	const { setCurrentUser } = useCurrentUser();
 	const [searchParam, setSearchParam] = useSearchParams();
-	const [formalUser, setFormalUser] = useState({
-		email: searchParam.get("email") ?? "",
-		password: "",
+	const [newStore, seteNewStore] = useState({
+		name: searchParam.get("name") ?? "",
 	});
-
-	const handleClick = () => {
-		navigate("/");
-	};
+	const { postData } = usePost();
 
 	const handleChange = (
 		e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
 	) => {
 		const { name, value } = e.target;
-		setFormalUser((userData) => ({
+		seteNewStore((userData) => ({
 			...userData,
 			[name]: value,
 		}));
-		if (name === "email") {
+      if (name === "email") {
 			setSearchParam({ ...searchParam, [name]: value });
 		}
 	};
@@ -57,34 +55,9 @@ function Login() {
 		e.preventDefault();
 		setLoading(true);
 		try {
-			const resp = await fetch(
-				`${import.meta.env.VITE_BASE_URL}/auth/login`,
-				{
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify({
-						email: formalUser.email,
-						password: formalUser.password,
-						type: "local"
-					}),
-				}
-			);
+			const result = await postData("/store", newStore)
 
-			const result = (await resp.json()) as LoginResponse;
-
-			if (!resp.ok) {
-				return showToast.error(result.message);
-			}
-			Cookie.set("doctor-token", result.data.accessToken, {
-				expires: 1,
-				secure: true,
-				sameSite: "strict",
-			});
-			console.log(result);
-			setCurrentUser(result.data);
-			showToast.success("Login Successful");
+			showToast.success("Store created Sucessfully");
 			navigate("/dashboard");
 		} catch (error) {
 			if (error instanceof Error) {
@@ -135,55 +108,45 @@ function Login() {
 		}
 	};
 	return (
-			<div className="auth__modal">
-				<div className="logo__container">
-					coinswag
-				</div>
-				<form onSubmit={handelSubmit}>
-					<FormInput
-						name="email"
-						type="email"
-						label="Email"
-						id="email"
-						handleChange={handleChange}
-						value={formalUser.email}
-						required
-					/>
-					<FormInput
-						name="password"
-						type="password"
-						eyeicon
-						label="Password"
-						id="password"
-						handleChange={handleChange}
-						value={formalUser.password}
-						required
-					/>
-					<label className="policy__label login__policy" htmlFor="policy">
-						We use industry-standard encryption techniques to protect your
-						password and other sensitive information.
-					</label>
-					<button className="submit__btn">
-						{" "}
-						{loading ? <Loader /> : "Submit"}
+		<div className="auth__modal">
+			<div className="logo__container">coinswag</div>
+			<h3 className="text-center text-gray-700 text-sm">
+				Create you First shop.
+			</h3>
+			<form onSubmit={handelSubmit}>
+				<FormInput
+					name="name"
+					type="text"
+					label="Store Name"
+					id="email"
+					handleChange={handleChange}
+					value={newStore.name}
+					required
+				/>
+				<FormInput
+					name="url"
+					type="text"
+					label="Shop Url"
+					id="url"
+					handleChange={handleChange}
+					value={newStore.name}
+					required
+					placeholder=".coinswag.shop"
+				/>
+        <div className="social">
+					
+					<button onClick={loginWithGoogle} type="button">
+          <img className="invert-[.3]" src="/icons/new-wallet.svg" alt="" />
+          <p className="text-gray-900">Connect wallet</p>
 					</button>
+				</div>
+				<button className="submit__btn">
+					{" "}
+					{loading ? <Loader /> : "Submit"}
+				</button>
 
-					<div className="social">
-						<div className="social__text">
-							<p>Social Login</p>
-							<span className="hr__line" />
-						</div>
-						<button onClick={loginWithGoogle} type="button">
-							<img src="/icons/goggle.svg" alt="" />
-							<p>Continue with Google</p>
-						</button>
-					</div>
-
-					<label className="policy__label" htmlFor="policy">
-						Don't have an account? <Link to="/register">SIGN UP</Link>
-					</label>
-				</form>
-			</div>
+			</form>
+		</div>
 	);
 }
-export default Login;
+export default NewStore;

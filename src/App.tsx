@@ -8,6 +8,7 @@ import Login from "./pages/auth/auth-section/Login";
 import Register from "./pages/auth/auth-section/Register";
 import { Wagmi } from "./providers/wagmi";
 import { Toaster } from "react-hot-toast";
+import NewStore from "./pages/auth/auth-section/NewStore";
 
 const router = createBrowserRouter([
 	{
@@ -30,7 +31,8 @@ const router = createBrowserRouter([
 				element: <Register />,
 			},
 			{
-				path:"/new-store"
+				path:"/new-store",
+				element: <NewStore />
 			}
 		],
 	},
