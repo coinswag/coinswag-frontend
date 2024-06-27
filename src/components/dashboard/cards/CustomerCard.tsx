@@ -20,7 +20,7 @@ function CustomerCard(props: CustomeCardProps) {
 				<ShopAvatar
 					backgroundColor={props.backgroundColor}
 					color={props.color}
-					initial={props.name[0]}
+					initial={`${props.name[0]}${props.name[1]}`}
 				/>
 				<p className="text-sm">{props.name}</p>
 			</div>
