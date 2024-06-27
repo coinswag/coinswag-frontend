@@ -25,21 +25,21 @@ function Home() {
 						<p>Orders</p>
 						<p>Price</p>
 					</div>
-					<Fragment>
-						{Object.keys(textColorMap).map((key, index) => (
-							<CustomerCard
-								key={index}
-                        email="aniokechukwudi7@gmail.com"
-								name="Anioke Sebastian"
-								backgroundColor={key}
-								color={textColorMap[key as keyof typeof textColorMap]}
-								date="23-04-2024"
-								walletAddress="0x7A3b6E44F8C8E58c485b71E1e7BF7f25E4d3C8E9"
-								price={23}
-								orders={7}
-							/>
-						))}
-					</Fragment>
+						<Fragment>
+							{Object.keys(textColorMap).map((key, index) => (
+								<CustomerCard
+									key={index}
+									email="aniokechukwudi7@gmail.com"
+									name="Anioke Sebastian"
+									backgroundColor={key}
+									color={textColorMap[key as keyof typeof textColorMap]}
+									date="23-04-2024"
+									walletAddress="0x7A3b6E44F8C8E58c485b71E1e7BF7f25E4d3C8E9"
+									price={23}
+									orders={7}
+								/>
+							))}
+						</Fragment>
 				</div>
 			</div>
 		</main>

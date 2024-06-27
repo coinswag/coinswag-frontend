@@ -15,8 +15,8 @@ type CustomeCardProps = {
 
 function CustomerCard(props: CustomeCardProps) {
 	return (
-		<article className="customer__card items-center [&>p]:text-sm [&>p]:text-gray-700">
-			<div className="customere__details flex items-center gap-2 px-3 py-2">
+		<article className="customer__card items-center [&>p]:text-sm [&>p]:text-gray-700 border-b border-b-gray-100  px-3 py-3">
+			<div className="customere__details flex items-center gap-2">
 				<ShopAvatar
 					backgroundColor={props.backgroundColor}
 					color={props.color}
