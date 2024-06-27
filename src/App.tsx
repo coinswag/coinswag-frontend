@@ -9,6 +9,10 @@ import Register from "./pages/auth/auth-section/Register";
 import OnchainProviders from "./providers/onchainkig-provider";
 import { Toaster } from "react-hot-toast";
 import NewStore from "./pages/auth/auth-section/NewStore";
+import Products from "./pages/dashboard/Products";
+import Customers from "./pages/dashboard/Customers";
+import Settings from "./pages/dashboard/Settings";
+import Orders from "./pages/dashboard/Orders";
 
 const router = createBrowserRouter([
 	{
@@ -22,6 +26,22 @@ const router = createBrowserRouter([
 			{
 				index: true,
 				element: <Home />
+			},
+			{
+				path: "products",
+				element: <Products />
+			},
+			{
+				path: "customers",
+				element: <Customers />
+			},
+			{
+				path: "settings",
+				element: <Settings />
+			},
+			{
+				path: "orders",
+				element: <Orders />
 			}
 		]
 	},

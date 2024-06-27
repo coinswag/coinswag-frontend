@@ -61,18 +61,12 @@ function SideBar() {
 			/>
 			<div className="logout__container">
 				<div className="shop__details">
-					<ShopAvatar initial="CN" />
+					<ShopAvatar backgroundColor="#4629FA" color="#fff" initial="CN" />
 					<div>
 						<h2 className="text-sm font-bold text-gray-600 capitalize text-md">My Sweatr shop</h2>
 						<div className="flex items-center text-[.8rem] text-blue-800 underline gap-1">view shop <img className="w-4" src="/icons/outside-link.svg" alt="" /></div>
 					</div>
 				</div>
-				{/* <SidebarItem
-					link="/login"
-					icon="/icons/logout.svg"
-					title="Sign Out"
-					handleClick={handleLogOut}
-				/> */}
 			</div>
 		</nav>
 	);

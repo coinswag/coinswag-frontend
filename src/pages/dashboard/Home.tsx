@@ -14,10 +14,10 @@ function Home() {
 				<RevenueChart />
 				<BestProduct />
 			</div>
-			<div className="mt-8 bg-white rounded-xl py-6 px-4">
+			<div className="mt-8 bg-white rounded-xl py-6 px-5">
 				<h1 className="font-bold text-2xl">Recent Customers</h1>
 				<div className="customer__table  mt-4">
-					<div className="customer__card py-4 bg-violet-100 px-4 [&>p]:text-sm [&>p]:font-bold rounded-lg">
+					<div className="customer__card py-4 bg-violet-100 px-4 [&>p]:text-sm [&>p]:font-bold rounded-lg mb-2">
 						<p>Customer</p>
 						<p>Wallet</p>
                   <p>Email</p>

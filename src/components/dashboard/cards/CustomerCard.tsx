@@ -15,7 +15,7 @@ type CustomeCardProps = {
 
 function CustomerCard(props: CustomeCardProps) {
 	return (
-		<article className="customer__card items-center [&>p]:text-sm">
+		<article className="customer__card items-center [&>p]:text-sm [&>p]:text-gray-700">
 			<div className="customere__details flex items-center gap-2 px-3 py-2">
 				<ShopAvatar
 					backgroundColor={props.backgroundColor}
@@ -28,7 +28,7 @@ function CustomerCard(props: CustomeCardProps) {
 			<p className="email">{props.email}</p>
 			<p className="date">{props.date}</p>
 			<p className="orders">{addZero(props.orders)}</p>
-			<p className="flex items-center gap-2">
+			<p className="flex items-center gap-2 font-bold">
 				<img className="w-6" src="/icons/usdt.svg" alt="" />
 				{addZero(props.price)}
 			</p>

@@ -8,7 +8,7 @@ type AvatarProps = {
 function ShopAvatar(props: AvatarProps) {
 	// const initials = props.initial[0]
 	return (
-		<div className="w-8 h-8 rounded-full overflow-hidden flex justify-center items-center">
+		<div className="w-12 h-12 rounded-full overflow-hidden flex justify-center items-center">
 			{props.image ? (
 				<img src={props.image} alt="" />
 			) : (
