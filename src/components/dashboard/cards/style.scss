@@ -3,3 +3,26 @@
    grid-template-columns: 23% 15% 25% 15% 10% 10%;
 
 }
+.new__product__card {
+   &::-webkit-scrollbar {
+      width: 0.7rem;
+      background-color: #f8f8f8;
+      transform: translateX(-100%);
+
+      &:hover {
+         background-color: #f5f4f4;
+      }
+   }
+   &::-webkit-scrollbar-thumb {
+      background-color: #dbdcdd;
+      border: 3.5px solid transparent;
+      border-radius: 1rem;
+      background-clip: content-box;
+   }
+   &::-webkit-scrollbar-button {
+      background-size: 70%;
+      background-repeat: no-repeat;
+      background-position: 51.8%;
+      height: 0.4rem;
+   }
+}

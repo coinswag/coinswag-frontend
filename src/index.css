@@ -21,6 +21,10 @@
    .dashboard__layout * {
     font-family: "Manrope";
    }
+   .required:after {
+    content:" *";
+    color: red;
+   }
 }
 
 @font-face {
