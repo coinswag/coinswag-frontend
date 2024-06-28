@@ -10,8 +10,14 @@ import handleGoogleAuth from "../../../firebase/firebase.google";
 import { FirebaseError } from "firebase/app";
 
 import usePost from "../../../hooks/usePost";
-import ConnectWalletBtn from "./connect-btn";
 import { ConnectAccount } from "@coinbase/onchainkit/wallet";
+import {
+  useAccount,
+  useWaitForTransactionReceipt,
+  useWriteContract,
+} from "wagmi";
+import { merchStoreFactoryAbi, merchStoreFactoryAddress } from "@/src/lib/abi";
+import { useCreateStore } from "@/src/hooks/useShopOnchain";
 
 export interface LoginResponse {
   success: boolean;
@@ -30,6 +36,10 @@ export interface LoginResponse {
 }
 
 function NewStore() {
+  const { createStore, data, error, isConfirmed, isConfirming } =
+    useCreateStore();
+  const { isDisconnected } = useAccount();
+
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const { setCurrentUser } = useCurrentUser();
@@ -55,16 +65,38 @@ function NewStore() {
   const handelSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    try {
-      const reqBody = JSON.stringify({
-        name: newStore.name,
-        url: `${newStore.name}.coinswag.shop`,
-      });
-      const result = await postData("/store", reqBody);
-      console.log(result);
 
-      showToast.success("Store created Sucessfully");
-      navigate("/dashboard");
+    try {
+      if (isDisconnected) {
+        showToast.error("Please connect your wallet");
+        setLoading(false);
+        return;
+      }
+      await createStore(
+        newStore.name,
+        "MERCHANT",
+        `${newStore.name}.coinSwag.shop`
+      );
+
+      if (error) {
+        showToast.error(error.message);
+        setLoading(false);
+        return;
+      }
+
+      if (data && isConfirmed) {
+        console.log("data", data);
+        const reqBody = JSON.stringify({
+          name: newStore.name,
+          tokenId: data.logs[0].topics[3],
+          url: `${newStore.name}.coinswag.shop`,
+        });
+
+        const result = await postData("/store", reqBody);
+        console.log(result);
+        showToast.success("Store created Successfully");
+        navigate("/dashboard");
+      }
     } catch (error) {
       if (error instanceof Error) {
         console.log(error.message);
