@@ -1,5 +1,5 @@
 import CartItem from "../cards/CartItem";
-import { Table, TableHeader, TableRow, TableHead  } from "../../ui/table";
+import { Table, TableHeader, TableRow, TableHead } from "../../ui/table";
 
 const cartItems = [
 	{
@@ -42,20 +42,20 @@ const cartItems = [
 function CartList() {
 	return (
 		<Table>
-         <TableHeader>
-         <TableRow>
-							{/* <TableHead className="hidden w-[100px] sm:table-cell">
+			<TableHeader>
+				<TableRow>
+					{/* <TableHead className="hidden w-[100px] sm:table-cell">
 								<span className="sr-only">Image</span>
 							</TableHead> */}
-							<TableHead className="font-bold">Merch</TableHead>
-                     <TableHead className="font-bold"></TableHead>
-							<TableHead className="font-bold">Size</TableHead>
-							<TableHead className="font-bold">quantity</TableHead>
-							<TableHead>
-								<span className="sr-only">Actions</span>
-							</TableHead>
-						</TableRow>
-         </TableHeader>
+					<TableHead className="font-bold">Merch</TableHead>
+					<TableHead className="font-bold"></TableHead>
+					<TableHead className="font-bold">Size</TableHead>
+					<TableHead className="font-bold">quantity</TableHead>
+					<TableHead>
+						<span className="sr-only">Actions</span>
+					</TableHead>
+				</TableRow>
+			</TableHeader>
 
 			{cartItems.map((item, index) => (
 				<CartItem
@@ -66,6 +66,7 @@ function CartList() {
 					size={item.size}
 				/>
 			))}
+			
 		</Table>
 	);
 }

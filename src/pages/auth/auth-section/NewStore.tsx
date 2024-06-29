@@ -9,115 +9,140 @@ import Loader from "../../../components/loader/circle-loader/Loader";
 import handleGoogleAuth from "../../../firebase/firebase.google";
 import { FirebaseError } from "firebase/app";
 
-
 import usePost from "../../../hooks/usePost";
+import { ConnectAccount } from "@coinbase/onchainkit/wallet";
+import {
+  useAccount,
+  useWaitForTransactionReceipt,
+  useWriteContract,
+} from "wagmi";
+import { merchStoreFactoryAbi, merchStoreFactoryAddress } from "@/src/lib/abi";
+import { useCreateStore } from "@/src/hooks/useShopOnchain";
 
 export interface LoginResponse {
-	success: boolean;
-	data: {
-		_id: string;
-		username: string;
-		email: string;
-		type: string;
-		password: string;
-		createdAt: string;
-		updatedAt: string;
-		__v: number;
-		accessToken: string;
-	};
-	message: string;
+  success: boolean;
+  data: {
+    _id: string;
+    username: string;
+    email: string;
+    type: string;
+    password: string;
+    createdAt: string;
+    updatedAt: string;
+    __v: number;
+    accessToken: string;
+  };
+  message: string;
 }
 
 function NewStore() {
-	const navigate = useNavigate();
-	const [loading, setLoading] = useState(false);
-	const { setCurrentUser } = useCurrentUser();
-	const [searchParam, setSearchParam] = useSearchParams();
-	const [newStore, seteNewStore] = useState({
-		name: searchParam.get("name") ?? "",
-	});
-	const { postData } = usePost();
+  const { createStore, data, error, isConfirmed, isConfirming } =
+    useCreateStore();
+  const { isDisconnected } = useAccount();
 
-	const handleChange = (
-		e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-	) => {
-		const { name, value } = e.target;
-		seteNewStore((userData) => ({
-			...userData,
-			[name]: value,
-		}));
-      if (name === "email") {
-			setSearchParam({ ...searchParam, [name]: value });
-		}
-	};
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const { setCurrentUser } = useCurrentUser();
+  const [searchParam, setSearchParam] = useSearchParams();
+  const [newStore, seteNewStore] = useState({
+    name: searchParam.get("name") ?? "",
+  });
+  const { postData } = usePost();
 
-	const handelSubmit = async (e: React.FormEvent) => {
-		e.preventDefault();
-		setLoading(true);
-		try {
-      const reqBody = JSON.stringify({
-        name: newStore.name,
-        url: `${newStore.name}.coinswag.shop`
-      })
-			const result = await postData("/store", reqBody);
-      console.log(result)
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    seteNewStore((userData) => ({
+      ...userData,
+      [name]: value,
+    }));
+    if (name === "email") {
+      setSearchParam({ ...searchParam, [name]: value });
+    }
+  };
 
-			showToast.success("Store created Sucessfully");
-			navigate("/dashboard");
-		} catch (error) {
-			if (error instanceof Error) {
-				console.log(error.message);
-				showToast.error(error.message);
-			}
-		} finally {
-			setLoading(false);
-		}
-	};
+  const handelSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
 
-	const connectWallet = async () => {
-	//code here
-	};
-	return (
-		<div className="auth__modal">
-			<div className="logo__container">coinswag</div>
-			<h3 className="text-center text-gray-700 text-sm">
-				Create you First shop.
-			</h3>
-			<form onSubmit={handelSubmit}>
-				<FormInput
-					name="name"
-					type="text"
-					label="Store Name"
-					id="email"
-					handleChange={handleChange}
-					value={newStore.name}
-					required
-				/>
-				<FormInput
-					name="url"
-					type="text"
-					label="Shop Url"
-					id="url"
-					handleChange={handleChange}
-					value={newStore.name}
-					required
+    try {
+      if (isDisconnected) {
+        showToast.error("Please connect your wallet");
+        setLoading(false);
+        return;
+      }
+      await createStore(
+        newStore.name,
+        "MERCHANT",
+        `${newStore.name}.coinSwag.shop`
+      );
+
+      if (error) {
+        showToast.error(error.message);
+        setLoading(false);
+        return;
+      }
+
+      if (data && isConfirmed) {
+        console.log("data", data);
+        const reqBody = JSON.stringify({
+          name: newStore.name,
+          tokenId: data.logs[0].topics[3],
+          url: `${newStore.name}.coinswag.shop`,
+        });
+
+        const result = await postData("/store", reqBody);
+        console.log(result);
+        showToast.success("Store created Successfully");
+        navigate("/dashboard");
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        console.log(error.message);
+        showToast.error(error.message);
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="auth__modal">
+      <div className="logo__container">coinswag</div>
+      <h3 className="text-center text-gray-700 text-sm">
+        Create you First shop.
+      </h3>
+      <form onSubmit={handelSubmit}>
+        <FormInput
+          name="name"
+          type="text"
+          label="Store Name"
+          id="email"
+          handleChange={handleChange}
+          value={newStore.name}
+          required
+        />
+        <FormInput
+          name="url"
+          type="text"
+          label="Shop Url"
+          id="url"
+          handleChange={handleChange}
+          value={newStore.name}
+          required
           disabled
-					text=".coinswag.shop"
-				/>
+          text=".coinswag.shop"
+        />
         <div className="social">
-					
-					<button onClick={connectWallet} type="button">
-          <img className="invert-[.3]" src="/icons/new-wallet.svg" alt="" />
-          <p className="text-gray-900">Connect wallet</p>
-					</button>
-				</div>
-				<button className="submit__btn">
-					{" "}
-					{loading ? <Loader /> : "Create Shop"}
-				</button>
-
-			</form>
-		</div>
-	);
+          <ConnectAccount />
+        </div>
+        <button className="submit__btn">
+          {" "}
+          {loading ? <Loader /> : "Create Shop"}
+        </button>
+      </form>
+    </div>
+  );
 }
 export default NewStore;

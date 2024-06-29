@@ -17,7 +17,7 @@ import StockCard from "./StockCard";
 import StockList from "../lists/StockList";
 import Loader from "../../loader/circle-loader/Loader";
 
-export function NewProductCard() {
+export function 	NewProductCard() {
 	return (
 		<Sheet>
 			<SheetTrigger asChild>

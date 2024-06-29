@@ -1,4 +1,3 @@
-import ProductCard from "@/src/components/dashboard/cards/ProductCard";
 import "./style.scss";
 import { Button } from "@/src/components/ui/button";
 import ShopList from "@/src/components/dashboard/lists/ShopList";

@@ -1,4 +1,3 @@
-"use client";
 import { ReactNode } from "react";
 import { OnchainKitProvider } from "@coinbase/onchainkit";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -16,7 +15,7 @@ function OnchainProviders({ children }: Props) {
       <QueryClientProvider client={queryClient}>
         <OnchainKitProvider
           apiKey={
-            "organizations/d26ecad5-8871-4091-b93f-690af7f7e264/apiKeys/06fb6ce0-60ec-4270-866d-92ca09920229"
+            "-----BEGIN EC PRIVATE KEY-----\nMHcCAQEEIH7LRxNGMPeo6pJmeDd84RBatzP+3MpMPf3za+2ZiPpwoAoGCCqGSM49\nAwEHoUQDQgAEhaW5rVgk0iQy8nCGbyNyOjivKtstcibf97R38B55Trt8EuhciIjS\nzT07Rdw4XlWgntXro/qubTqDPwPrY37wFA==\n-----END EC PRIVATE KEY-----\n"
           }
           chain={base}
         >

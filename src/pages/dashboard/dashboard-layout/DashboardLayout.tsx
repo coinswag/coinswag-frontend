@@ -13,7 +13,6 @@ function DashboardLayout() {
   const token = Cookies.get("coinswag-token");
   const [isLoading, setIsLoading] = useState(false);
 
-
   const isAuthenticated = token !== undefined;
   const navigate = useNavigate();
   const { setCurrentUser, currentUser } = useCurrentUser();
@@ -25,7 +24,7 @@ function DashboardLayout() {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
       });
       const result = (await resp.json()) as LoginResponse;
@@ -55,7 +54,7 @@ function DashboardLayout() {
   }, []);
 
   if (isLoading) {
-    return  <Loader />;
+    return <Loader />;
   }
 
   if (isAuthenticated && currentUser) {
