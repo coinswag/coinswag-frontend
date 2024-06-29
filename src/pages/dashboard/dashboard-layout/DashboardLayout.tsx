@@ -35,7 +35,6 @@ function DashboardLayout() {
         return showToast.error(result.message);
       }
       setCurrentUser(result.data);
-      showToast.success("User Retrieved");
       navigate("/dashboard");
     } catch (error) {
       if (error instanceof Error) {

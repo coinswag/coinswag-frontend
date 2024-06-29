@@ -26,7 +26,7 @@ export function NewProductCard() {
 					Create Product
 				</button>
 			</SheetTrigger>
-			<SheetContent className="w-[45%] overflow-y-auto new__product__card">
+			<SheetContent className="w-[35%] overflow-y-auto new__product__card">
 				<SheetHeader>
 					<SheetTitle className="text-2xl">
 						Create Merch
