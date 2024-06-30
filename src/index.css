@@ -37,6 +37,10 @@
   
 }
 
+.active__toggle {
+  background-color: #4629FA;
+}
+
 .clip__path {
   clip-path: polygon(0 0, 85% 0, 100% 100%, 0 100%);
 

@@ -1,9 +1,10 @@
 import "./style.scss";
+import { cn } from "@/src/lib/utils";
 
-function Loader({color = "white"}) {
+function Loader({color = "white", className}: {color?: string, className?: string}) {
 	return (
 		<svg
-			className="container"
+			className={cn("container", className)}
 			viewBox="0 0 40 40"
 			height="40"
 			width="40"
