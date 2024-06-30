@@ -1,23 +1,26 @@
 import { useNavigate } from "react-router-dom";
 import "./auth.scss";
 import FormInput from "../../../components/auth/form-input/FormInput";
-import { Fragment, useState } from "react";
-import { useSearchParams, Link } from "react-router-dom";
-import useCurrentUser from "../../../hooks/useCurrentUser";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
+// import useCurrentUser from "../../../hooks/useCurrentUser";
 import showToast from "../../../utils/showToast";
 import Loader from "../../../components/loader/circle-loader/Loader";
-import handleGoogleAuth from "../../../firebase/firebase.google";
-import { FirebaseError } from "firebase/app";
+// import handleGoogleAuth from "../../../firebase/firebase.google";
+// import { FirebaseError } from "firebase/app";
 
 import usePost from "../../../hooks/usePost";
-import { ConnectAccount } from "@coinbase/onchainkit/wallet";
 import {
   useAccount,
   useWaitForTransactionReceipt,
   useWriteContract,
 } from "wagmi";
+
 import { merchStoreFactoryAbi, merchStoreFactoryAddress } from "@/src/lib/abi";
-import { useCreateStore } from "@/src/hooks/useShopOnchain";
+import { ConnectWallet } from "@/src/components/ui/connect-wallet";
+import { parseEventLogs } from "viem";
+import { useConnectWallet } from "@web3-onboard/react";
+import useCurrentStore, { StoreProps } from "@/src/hooks/useCurrentStore";
 
 export interface LoginResponse {
   success: boolean;
@@ -36,15 +39,19 @@ export interface LoginResponse {
 }
 
 function NewStore() {
-  const { createStore, data, error, isConfirmed, isConfirming } =
-    useCreateStore();
+  const { data: hash, error, writeContract, isPending } = useWriteContract();
+
+  const [{ wallet, connecting: connectingWallet }] = useConnectWallet();
+
   const { isDisconnected } = useAccount();
+  const { addStore, setCurrentStore } = useCurrentStore();
 
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
-  const { setCurrentUser } = useCurrentUser();
+
+  const [isLoading, setIsLoading] = useState(false);
+  // const { setCurrentUser } = useCurrentUser();
   const [searchParam, setSearchParam] = useSearchParams();
-  const [newStore, seteNewStore] = useState({
+  const [newStore, setNewStore] = useState({
     name: searchParam.get("name") ?? "",
   });
   const { postData } = usePost();
@@ -53,60 +60,105 @@ function NewStore() {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-    seteNewStore((userData) => ({
+
+    setNewStore((userData) => ({
       ...userData,
       [name]: value,
     }));
+
     if (name === "email") {
       setSearchParam({ ...searchParam, [name]: value });
     }
   };
 
+  const {
+    data: txReceipt,
+    isLoading: isConfirming,
+    isSuccess: isConfirmed,
+  } = useWaitForTransactionReceipt({
+    hash,
+  });
+
   const handelSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
 
-    try {
-      if (isDisconnected) {
-        showToast.error("Please connect your wallet");
-        setLoading(false);
-        return;
-      }
-      await createStore(
-        newStore.name,
-        "MERCHANT",
-        `${newStore.name}.coinSwag.shop`
-      );
-
-      if (error) {
-        showToast.error(error.message);
-        setLoading(false);
-        return;
-      }
-
-      if (data && isConfirmed) {
-        console.log("data", data);
-        const reqBody = JSON.stringify({
-          name: newStore.name,
-          tokenId: data.logs[0].topics[3],
-          url: `${newStore.name}.coinswag.shop`,
-        });
-
-        const result = await postData("/store", reqBody);
-        console.log(result);
-        showToast.success("Store created Successfully");
-        navigate("/dashboard");
-      }
-    } catch (error) {
-      if (error instanceof Error) {
-        console.log(error.message);
-        showToast.error(error.message);
-      }
-    } finally {
-      setLoading(false);
-    }
+    writeContract({
+      address: merchStoreFactoryAddress,
+      abi: merchStoreFactoryAbi,
+      functionName: "createStore",
+      args: [newStore.name, "MERCHANT", `${newStore.name}.coinSwag.shop`],
+    });
   };
 
+  useEffect(() => {
+    if (isDisconnected) {
+      showToast.error("Please connect your wallet");
+      setIsLoading(false);
+      return;
+    }
+    // function getEventArgs(
+    //   txReceipt: ethers.ContractReceipt,
+    //   eventSignature: string
+    // ) {
+    //   const iface = new ethers.utils.Interface(merchStoreFactoryAbi);
+    //   // Find the log for your event
+    //   const log = txReceipt.logs.find(
+    //     (log) => log.topics[0] === ethers.utils.id(eventSignature)
+    //   );
+    //   if (log) {
+    //     const parsedLog = iface.parseLog(log);
+    //     return parsedLog.args;
+    //   }
+    // }
+    const createStoreOnBackend = async () => {
+      // console.log(txReceipt);
+      if (txReceipt && isConfirmed) {
+        const parsedLogArgs = parseEventLogs({
+          logs: txReceipt.logs,
+          abi: merchStoreFactoryAbi,
+          eventName: "StoreCreated",
+        })[0].args;
+
+        const store: StoreProps = {
+          name: parsedLogArgs.name,
+          owner: parsedLogArgs.owner,
+          storeAddress: parsedLogArgs.storeAddress,
+          tokenId: parsedLogArgs.storeId.toString(),
+          url: `${newStore.name}.coinswag.shop`,
+        };
+        try {
+          const result = await postData("/store", JSON.stringify(store));
+
+          setCurrentStore(store);
+
+          console.log("result from backend call: ", result);
+          showToast.success("Store created Successfully onChain");
+          navigate("/dashboard");
+        } catch (error) {
+          if (error instanceof Error) {
+            console.log(error);
+            showToast.error("Error creating store");
+          }
+        } finally {
+          setIsLoading(false);
+        }
+      }
+    };
+
+    createStoreOnBackend();
+  }, [
+    txReceipt,
+    isConfirmed,
+    newStore.name,
+    postData,
+    isDisconnected,
+    navigate,
+    isConfirming,
+    addStore,
+  ]);
+
+  // if (isConfirming) return <div>Loading...</div>;
+  if (error) return <div>{error.message}</div>;
   return (
     <div className="auth__modal">
       <div className="logo__container">coinswag</div>
@@ -135,11 +187,14 @@ function NewStore() {
           text=".coinswag.shop"
         />
         <div className="social">
-          <ConnectAccount />
+          <ConnectWallet />
         </div>
-        <button className="submit__btn">
+        <button
+          className="submit__btn"
+          disabled={!wallet || connectingWallet || isConfirming}
+        >
           {" "}
-          {loading ? <Loader /> : "Create Shop"}
+          {isLoading || isConfirming || isPending ? <Loader /> : "Create Shop"}
         </button>
       </form>
     </div>

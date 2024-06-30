@@ -6,7 +6,7 @@ import DashboardLayout from "./pages/dashboard/dashboard-layout/DashboardLayout"
 import AuthLayout from "./pages/auth/auth-layout/AuthLayout";
 import Login from "./pages/auth/auth-section/Login";
 import Register from "./pages/auth/auth-section/Register";
-import OnchainProviders from "./providers/onchainkig-provider";
+import OnchainProviders from "./providers/onchainkit-provider";
 import { Toaster } from "react-hot-toast";
 import NewStore from "./pages/auth/auth-section/NewStore";
 import Products from "./pages/dashboard/Products";
@@ -78,7 +78,7 @@ function App() {
   return (
     <Fragment>
       <OnchainProviders>
-			<Toaster />
+        <Toaster />
         <RouterProvider router={router} />
       </OnchainProviders>
     </Fragment>
