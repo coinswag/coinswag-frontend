@@ -14,59 +14,69 @@ import Customers from "./pages/dashboard/Customers";
 import Settings from "./pages/dashboard/Settings";
 import Orders from "./pages/dashboard/Orders";
 import MyShop from "./pages/my-shop/MyShop";
+import Profile from "./pages/Profile";
+import AllStores from "./pages/AllStores";
 
 const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <LandingPage />,
-  },
-  {
-    path: "/dashboard",
-    element: <DashboardLayout />,
-    children: [
-      {
-        index: true,
-        element: <Home />,
-      },
-      {
-        path: "products",
-        element: <Products />,
-      },
-      {
-        path: "customers",
-        element: <Customers />,
-      },
-      {
-        path: "settings",
-        element: <Settings />,
-      },
-      {
-        path: "orders",
-        element: <Orders />,
-      },
-    ],
-  },
-  {
-    element: <AuthLayout />,
-    children: [
-      {
-        path: "/login",
-        element: <Login />,
-      },
-      {
-        path: "/register",
-        element: <Register />,
-      },
-      {
-        path: "/new-store",
-        element: <NewStore />,
-      },
-    ],
-  },
-  {
-    path: "/myshop",
-    element: <MyShop />,
-  },
+	{
+		path: "/",
+		element: <LandingPage />,
+	},
+	{
+		path: "/dashboard",
+		element: <DashboardLayout />,
+		children: [
+			{
+				index: true,
+				element: <Home />
+			},
+			{
+				path: "products",
+				element: <Products />
+			},
+			{
+				path: "customers",
+				element: <Customers />
+			},
+			{
+				path: "settings",
+				element: <Settings />
+			},
+			{
+				path: "orders",
+				element: <Orders />
+			},
+			{
+				path: "profile",
+				element: <Profile />
+			},
+			{
+				path: "stores",
+				element: <AllStores />
+			}
+		]
+	},
+	{
+		element: <AuthLayout />,
+		children: [
+			{
+				path: "/login",
+				element: <Login />,
+			},
+			{
+				path: "/register",
+				element: <Register />,
+			},
+			{
+				path:"/new-store",
+				element: <NewStore />
+			}
+		],
+	},
+	{
+		path: "/myshop",
+		element: <MyShop />
+	}
 ]);
 
 function App() {

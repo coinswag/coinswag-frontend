@@ -24,6 +24,8 @@
       backdrop-filter: blur(2px);
 	}
 
+	
+
 	.dashboard__outlet {
 		grid-column: 2/3;
 		grid-row: 2/3;
@@ -32,6 +34,10 @@
       overflow-y: auto;
       position: relative;
 		background-color: #f7f9ff;
+
+		&.fill {
+		grid-column: 1/3;
+		}
 	}
 
 	.video__cover {

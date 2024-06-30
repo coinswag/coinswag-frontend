@@ -1,4 +1,15 @@
+import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
+
 function Hero() {
+  const navigate = useNavigate();
+  const handleNavigate = () => {
+    const token = Cookies.get("coinswag-token");
+    if (token) {
+      return navigate("/dashboard");
+    }
+    navigate("/login");
+  };
   return (
     <section className="h-screen flex justify-center items-center relative overflow-hidden ">
       <img className="absolute top-0 left-0" src="/icons/ellipse.svg" alt="" />
@@ -22,16 +33,19 @@ function Hero() {
           The web3 platform for <br /> community-driven merchandise
         </h1>
         <p>
-          <span className="text-primary">CoinSwag</span> is a Decentralized
-          platform tha enables Crypto communities to
+          <span className="text-primary">CoinSwag</span> is a Decentalized
+          platform tha enables Crypto cummunities to
         </p>
         <p>
           effortlessly create stores, make profits from merchandise with the use
           of Blockchain technologies.{" "}
         </p>
-        <button className="bg-primary px-14 py-3 rounded-3xl font-bold mt-6 text-sm text-white flex justify-center items-center gap-1 mx-auto">
+        <button
+          className="bg-primary px-14 py-3 rounded-3xl font-bold mt-6 text-sm text-white flex justify-center items-center gap-1 mx-auto"
+          onClick={handleNavigate}
+        >
           <img className="w-5 invert" src="/icons/shop.svg" alt="" />
-          Create Store
+          Get Started
         </button>
       </div>
     </section>
