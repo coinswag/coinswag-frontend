@@ -1,4 +1,16 @@
+import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
+
+
 function Hero() {
+	const navigate = useNavigate();
+	const handleNavigate = ()=> {
+		const token = Cookies.get("coinswag-token");
+		if(token) {
+			return navigate("/dashboard")
+		}
+		navigate("/login")
+	}
 	return (
 		<section className="h-screen flex justify-center items-center relative overflow-hidden ">
 			<img
@@ -33,9 +45,9 @@ function Hero() {
 					effortlessly create stores, make profits from merchandise with
 					the use of Blockchain technologies.{" "}
 				</p>
-				<button className="bg-primary px-14 py-3 rounded-3xl font-bold mt-6 text-sm text-white flex justify-center items-center gap-1 mx-auto">
+				<button className="bg-primary px-14 py-3 rounded-3xl font-bold mt-6 text-sm text-white flex justify-center items-center gap-1 mx-auto" onClick={handleNavigate}>
 					<img className="w-5 invert" src="/icons/shop.svg" alt="" />
-					Create Store
+					Get Started
 				</button>
 			</div>
 		</section>

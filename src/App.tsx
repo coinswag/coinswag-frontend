@@ -14,6 +14,7 @@ import Customers from "./pages/dashboard/Customers";
 import Settings from "./pages/dashboard/Settings";
 import Orders from "./pages/dashboard/Orders";
 import MyShop from "./pages/my-shop/MyShop";
+import Profile from "./pages/Profile";
 
 const router = createBrowserRouter([
 	{
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
 			{
 				path: "orders",
 				element: <Orders />
+			},
+			{
+				path: "profile",
+				element: <Profile />
 			}
 		]
 	},
