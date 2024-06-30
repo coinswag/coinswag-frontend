@@ -1,4 +1,5 @@
-import { ConnectAccount } from "@coinbase/onchainkit/wallet";
+// import { ConnectAccount } from "@coinbase/onchainkit/wallet";
+import { ConnectWallet } from "@/src/components/ui/connect-wallet";
 
 function NavBar() {
   return (
@@ -10,7 +11,7 @@ function NavBar() {
         <a href="">Home</a>
         <a href="">Merchandise</a>
         <a href="">About</a>
-        <ConnectAccount />
+        <ConnectWallet />
       </div>
     </nav>
   );

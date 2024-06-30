@@ -758,7 +758,7 @@ export const merchStoreFactoryAbi = [
     name: "WithdrawalFailed",
     inputs: [],
   },
-];
+] as const;
 
 export const merchStoreAbi = [
   {
@@ -995,6 +995,96 @@ export const merchStoreAbi = [
   },
   {
     type: "function",
+    name: "getAllOrders",
+    inputs: [],
+    outputs: [
+      {
+        name: "",
+        type: "tuple[]",
+        internalType: "struct MerchStore.Order[]",
+        components: [
+          {
+            name: "buyer",
+            type: "address",
+            internalType: "address",
+          },
+          {
+            name: "productId",
+            type: "uint256",
+            internalType: "uint256",
+          },
+          {
+            name: "quantity",
+            type: "uint256",
+            internalType: "uint256",
+          },
+          {
+            name: "totalPrice",
+            type: "uint256",
+            internalType: "uint256",
+          },
+          {
+            name: "timestamp",
+            type: "uint256",
+            internalType: "uint256",
+          },
+          {
+            name: "isFulfilled",
+            type: "bool",
+            internalType: "bool",
+          },
+        ],
+      },
+    ],
+    stateMutability: "view",
+  },
+  {
+    type: "function",
+    name: "getAllProducts",
+    inputs: [],
+    outputs: [
+      {
+        name: "",
+        type: "tuple[]",
+        internalType: "struct MerchStore.Product[]",
+        components: [
+          {
+            name: "name",
+            type: "string",
+            internalType: "string",
+          },
+          {
+            name: "description",
+            type: "string",
+            internalType: "string",
+          },
+          {
+            name: "price",
+            type: "uint256",
+            internalType: "uint256",
+          },
+          {
+            name: "quantity",
+            type: "uint256",
+            internalType: "uint256",
+          },
+          {
+            name: "isActive",
+            type: "bool",
+            internalType: "bool",
+          },
+          {
+            name: "imageUri",
+            type: "string",
+            internalType: "string",
+          },
+        ],
+      },
+    ],
+    stateMutability: "view",
+  },
+  {
+    type: "function",
     name: "getApproved",
     inputs: [
       {
@@ -1027,6 +1117,25 @@ export const merchStoreAbi = [
         name: "",
         type: "bytes32",
         internalType: "bytes32",
+      },
+    ],
+    stateMutability: "view",
+  },
+  {
+    type: "function",
+    name: "getUserOrders",
+    inputs: [
+      {
+        name: "user",
+        type: "address",
+        internalType: "address",
+      },
+    ],
+    outputs: [
+      {
+        name: "",
+        type: "uint256[]",
+        internalType: "uint256[]",
       },
     ],
     stateMutability: "view",
@@ -2359,11 +2468,11 @@ export const merchStoreAbi = [
     name: "WithdrawalFailed",
     inputs: [],
   },
-];
+] as const;
 
 export const merchStoreSampleAddress =
   "0x63d42003f1f434e29cc075746aa15fdc45baedfa";
 // https://sepolia.basescan.org/address/0x1d05E9C21fe4c538eE74A8Ef315bF6AfC57190C8
 export const merchStoreFactoryAddress =
   "0x1d05E9C21fe4c538eE74A8Ef315bF6AfC57190C8";
-// https://sepolia.basescan.org/address/0x63d42003f1f434e29cc075746aa15fdc45baedfa
+// https://sepolia.basescan.org/address/0x1d05E9C21fe4c538eE74A8Ef315bF6AfC57190C8

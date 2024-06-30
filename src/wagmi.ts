@@ -1,20 +1,20 @@
 import { http, createConfig } from "wagmi";
-import { baseSepolia } from "wagmi/chains";
-import { coinbaseWallet } from "wagmi/connectors";
+import { anvil, baseSepolia } from "wagmi/chains";
+import { coinbaseWallet, injected } from "wagmi/connectors";
 
 export const wagmiConfig = createConfig({
-  multiInjectedProviderDiscovery: false,
-  chains: [baseSepolia],
+  chains: [baseSepolia, anvil],
   connectors: [
     coinbaseWallet({
-      appName: "Coinswag",
+      appName: "CoinSwag",
       preference: "all",
-
       version: "4",
     }),
+    injected(),
   ],
   ssr: true,
   transports: {
     [baseSepolia.id]: http(),
+    [anvil.id]: http(),
   },
 });
