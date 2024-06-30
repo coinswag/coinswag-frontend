@@ -1,9 +1,9 @@
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import SidebarItem from "./SidebarItem";
 import useCurrentUser from "../../../hooks/useCurrentUser";
 import "./style.scss";
-import showToast from "../../../utils/showToast";
-import Cookies from "js-cookie";
+// import showToast from "../../../utils/showToast";
+// import Cookies from "js-cookie";
 import ShopAvatar from "./ShopAvatar";
 import useCurrentStore from "@/src/hooks/useCurrentStore";
 
@@ -12,7 +12,7 @@ function SideBar() {
   const currentUser = useCurrentUser((state) => state.currentUser);
   const { currentStore } = useCurrentStore();
   // const sideBarState = useCurrentUser((state) => state.sideBar);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const { sideBar } = useCurrentUser();
 
@@ -21,12 +21,12 @@ function SideBar() {
   };
   console.log(currentUser);
 
-  const handleLogOut = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    Cookies.remove("doctor-token");
-    showToast.success("Signed Out");
-    navigate("/login", { replace: true });
-  };
+  // const handleLogOut = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  //   e.preventDefault();
+  //   Cookies.remove("doctor-token");
+  //   showToast.success("Signed Out");
+  //   navigate("/login", { replace: true });
+  // };
   return (
     <nav className={`side__bar ${!sideBar && "hide__sidebar"}`}>
       <SidebarItem

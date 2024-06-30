@@ -1,16 +1,23 @@
 import "./style.scss";
-import { useState } from "react";
+// import { useState } from "react";
 import useCurrentUser from "../../../hooks/useCurrentUser";
 import { UserOptions } from "./UserOptions";
 import useCurrentStore from "@/src/hooks/useCurrentStore";
 import { Button } from "../../ui/button";
+import { useConnectWallet } from "@web3-onboard/react";
 
 function TopNav() {
-  const [loading] = useState(false);
-  const [isPresent, setIsPresent] = useState(false);
-  const handlePresentChange = () => {
-    setIsPresent(!isPresent);
+  const [{ wallet, connecting }, connect, disconnect] = useConnectWallet();
+
+  const abbreviateAddress = (address: string) => {
+    return `${address.slice(0, 6)}...${address.slice(-4)}`;
   };
+
+  // const [loading] = useState(false);
+  // const [isPresent, setIsPresent] = useState(false);
+  // const handlePresentChange = () => {
+  //   setIsPresent(!isPresent);
+  // };
   const { setSideBar, sideBar } = useCurrentUser();
   const { currentStore } = useCurrentStore();
   return (
@@ -20,8 +27,16 @@ function TopNav() {
       <Button
         className="ml-auto mr-4 px-4 text-sm bg-primary text-white font-bold"
         variant="outline"
+        disabled={connecting || !!wallet}
+        onClick={() =>
+          wallet ? disconnect({ label: wallet.label }) : connect()
+        }
       >
-        Connect wallet
+        {connecting
+          ? "connecting..."
+          : wallet
+          ? abbreviateAddress(wallet.accounts[0].address)
+          : "connect wallet"}{" "}
       </Button>
       <UserOptions />
 
