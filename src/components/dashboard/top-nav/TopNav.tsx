@@ -2,6 +2,7 @@ import "./style.scss";
 import { useState } from "react";
 import useCurrentUser from "../../../hooks/useCurrentUser";
 import { UserOptions } from "./UserOptions";
+import useCurrentStore from "@/src/hooks/useCurrentStore";
 
 function TopNav() {
   const [loading] = useState(false);
@@ -9,11 +10,12 @@ function TopNav() {
   const handlePresentChange = () => {
     setIsPresent(!isPresent);
   };
-  const { setSideBar , sideBar} = useCurrentUser();
+  const { setSideBar, sideBar } = useCurrentUser();
+  const { currentStore } = useCurrentStore();
   return (
     <nav className="dash__nav">
-      <div className="logo__container">coinswag</div>
-      <h1>My Sweatr Shop</h1>
+      <div className="logo__container">coinSwag</div>
+      <h1>My {currentStore?.name} Store</h1>
       <UserOptions />
 
       <button onClick={() => setSideBar(!sideBar)} className="menu__btn">

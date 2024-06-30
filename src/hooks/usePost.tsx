@@ -20,6 +20,7 @@ const usePost = () => {
       const result = (await resp.json()) as ServerResponse;
 
       if (!resp.ok) {
+        console.log(result);
         return showToast.error(result.message);
       }
       return result;

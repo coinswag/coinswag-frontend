@@ -1,7 +1,9 @@
 import "./style.scss";
-import { Outlet } from "react-router-dom"
+import { Outlet } from "react-router-dom";
+import useCurrentStore from "@/src/hooks/useCurrentStore";
 
 function AuthLayout() {
+  const { currentStore } = useCurrentStore();
   return (
     <div className="auth__layout">
       <div className="testimony__bg">
@@ -10,16 +12,16 @@ function AuthLayout() {
           <div className="shop__details">
             <div className="initials">S</div>
             <div className="detials">
-              <h2>Sweatr Shop</h2>
-              <p>sweatr.coinswap.shop</p>
+              <h2>{currentStore?.name}</h2>
+              <p>{currentStore?.url}</p>
             </div>
           </div>
         </div>
       </div>
       <div className="auth__cover">
-         <Outlet />
+        <Outlet />
       </div>
     </div>
-  )
+  );
 }
 export default AuthLayout;

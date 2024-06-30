@@ -9,17 +9,18 @@ export type StoreProps = {
   storeAddress: string;
   owner: string;
   url: string;
+  _id: string;
 };
 
 export type ProductProps = {
-  productId: string;
+  tokenId: string;
   name: string;
   description: string;
-  price: number;
-  quantity: number;
-  size: string;
-  isActive: boolean;
-  imageUri: string;
+  price: string;
+  quantity: string;
+  sizes: string;
+  isActive: string;
+  storeId: string;
 };
 
 interface CurrentStoreState {
