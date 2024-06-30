@@ -23,7 +23,8 @@ module.exports = {
         customer_card: "35% 20% 15% 10% 20%" 
       },
       fontFamily: {
-        raleway: ["Raleway"]
+        raleway: ["Raleway"],
+        manrope: ["Manrope"]
       },
       colors: {
         primary: "#4629FA"

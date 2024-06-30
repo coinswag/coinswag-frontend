@@ -13,6 +13,7 @@ import Products from "./pages/dashboard/Products";
 import Customers from "./pages/dashboard/Customers";
 import Settings from "./pages/dashboard/Settings";
 import Orders from "./pages/dashboard/Orders";
+import MyShop from "./pages/my-shop/MyShop";
 
 const router = createBrowserRouter([
   {
@@ -61,6 +62,10 @@ const router = createBrowserRouter([
         element: <NewStore />,
       },
     ],
+  },
+  {
+    path: "/myshop",
+    element: <MyShop />,
   },
 ]);
 
