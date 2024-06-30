@@ -1,4 +1,4 @@
-import { Card, CardContent, CardFooter } from "@/src/components/ui/card";
+import { Card, CardContent } from "@/src/components/ui/card";
 
 import {
   Table,
@@ -8,9 +8,8 @@ import {
   TableRow,
 } from "@/src/components/ui/table";
 import ProductCard from "../cards/ProductCard";
-import { BaseError, useBalance, useReadContract } from "wagmi";
-import { erc20Abi } from "viem";
-import { merchStoreAbi } from "@/src/lib/abi";
+
+import useCurrentStore from "@/src/hooks/useCurrentStore";
 
 const products = [
   {
@@ -63,22 +62,10 @@ const products = [
   },
 ];
 export default function ProductList() {
-  const {
-    data: balance,
-    isPending,
-    error,
-  } = useReadContract({
-    abi: merchStoreAbi,
-    address: "0x5fc8d32690cc91d4c39d9d3abcbd16989f875707",
+  const { currentStore } = useCurrentStore();
 
-    // 0xdc64a140aa3e981100a9beca4e685f962f0cf6c9
-    // 0x5fc8d32690cc91d4c39d9d3abcbd16989f875707
-    functionName: "MAX_PRODUCT_PRICE",
-  });
-  console.log(isPending);
-  console.log("balance: ", balance);
-  if (isPending) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.shortMessage || error.message}</div>;
+  console.log("store: ", currentStore?.storeAddress);
+
   return (
     <Card className="mt-4 shadow-none">
       <CardContent>

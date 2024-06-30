@@ -20,7 +20,7 @@ import { merchStoreFactoryAbi, merchStoreFactoryAddress } from "@/src/lib/abi";
 import { ConnectWallet } from "@/src/components/ui/connect-wallet";
 import { parseEventLogs } from "viem";
 import { useConnectWallet } from "@web3-onboard/react";
-import useCurrentStore, { StoreProps } from "@/src/hooks/useCurrentStore";
+import useCurrentStore from "@/src/hooks/useCurrentStore";
 
 export interface LoginResponse {
   success: boolean;
@@ -119,21 +119,27 @@ function NewStore() {
           eventName: "StoreCreated",
         })[0].args;
 
-        const store: StoreProps = {
-          name: parsedLogArgs.name,
-          owner: parsedLogArgs.owner,
-          storeAddress: parsedLogArgs.storeAddress,
-          tokenId: parsedLogArgs.storeId.toString(),
-          url: `${newStore.name}.coinswag.shop`,
-        };
         try {
-          const result = await postData("/store", JSON.stringify(store));
+          const result = await postData(
+            "/store",
+            JSON.stringify({
+              name: parsedLogArgs.name,
+              owner: parsedLogArgs.owner,
+              storeAddress: parsedLogArgs.storeAddress,
+              tokenId: parsedLogArgs.storeId.toString(),
+              url: `${newStore.name}.coinswag.shop`,
+            })
+          );
+          if (result) {
+            console.log("result: ", result);
 
-          setCurrentStore(store);
+            const store = result.data;
+            setCurrentStore(store);
 
-          console.log("result from backend call: ", result);
-          showToast.success("Store created Successfully onChain");
-          navigate("/dashboard");
+            console.log("result from backend call: ", result);
+            showToast.success("Store created Successfully onChain");
+            navigate("/dashboard");
+          }
         } catch (error) {
           if (error instanceof Error) {
             console.log(error);
@@ -155,6 +161,7 @@ function NewStore() {
     navigate,
     isConfirming,
     addStore,
+    setCurrentStore,
   ]);
 
   // if (isConfirming) return <div>Loading...</div>;

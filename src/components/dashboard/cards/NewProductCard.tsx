@@ -47,6 +47,7 @@ export function NewProductCard() {
     image: null as File | null,
     price: 22n,
     stock: 8n,
+    sizes: "M,XL",
   });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -74,7 +75,13 @@ export function NewProductCard() {
         address: currentStore.storeAddress as `0x${string}`,
         abi: merchStoreAbi,
         functionName: "createProduct",
-        args: [formData.name, formData.description, 22n, 3n, "M"],
+        args: [
+          formData.name,
+          formData.description,
+          formData.price,
+          formData.stock,
+          formData.sizes,
+        ],
       });
     } else {
       toast.error("no store state available.");
@@ -89,26 +96,28 @@ export function NewProductCard() {
     }
 
     const createProductOnBackend = async () => {
-      if (txReceipt && isConfirmed) {
+      if (txReceipt && isConfirmed && currentStore) {
+        console.log(currentStore);
+        console.log(txReceipt);
         const parsedLogArgs = parseEventLogs({
           logs: txReceipt.logs,
           abi: merchStoreAbi,
           eventName: "ProductCreated",
         })[0].args;
-
+        console.log(parsedLogArgs.productId.toString());
         const product: ProductProps = {
-          isActive: true,
+          storeId: currentStore._id,
+          isActive: "true",
           name: parsedLogArgs.name,
-          price: Number(parsedLogArgs.price),
-          quantity: Number(parsedLogArgs.quantity),
-          productId: parsedLogArgs.productId.toString(),
-          description: "Place holder description",
-          size: "M",
-          imageUri: "https://localhost:3000/sample",
+          price: parsedLogArgs.price.toString(),
+          quantity: parsedLogArgs.quantity.toString(),
+          tokenId: parsedLogArgs.productId.toString(),
+          description: parsedLogArgs.description,
+          sizes: parsedLogArgs.sizes,
         };
         try {
           const result = await postData("/product", JSON.stringify(product));
-          addProduct(product);
+          // addProduct(product);
           console.log("result from backend call: ", result);
           showToast.success("product created Successfully");
         } catch (error) {
@@ -130,6 +139,7 @@ export function NewProductCard() {
     isDisconnected,
     isConfirming,
     addProduct,
+    currentStore,
   ]);
 
   return (

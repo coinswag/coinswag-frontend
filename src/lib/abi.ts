@@ -959,7 +959,7 @@ export const merchStoreAbi = [
         internalType: "uint256",
       },
       {
-        name: "imageUri",
+        name: "sizes",
         type: "string",
         internalType: "string",
       },
@@ -1074,7 +1074,7 @@ export const merchStoreAbi = [
             internalType: "bool",
           },
           {
-            name: "imageUri",
+            name: "sizes",
             type: "string",
             internalType: "string",
           },
@@ -1389,7 +1389,7 @@ export const merchStoreAbi = [
         internalType: "bool",
       },
       {
-        name: "imageUri",
+        name: "sizes",
         type: "string",
         internalType: "string",
       },
@@ -1672,11 +1672,6 @@ export const merchStoreAbi = [
         name: "isActive",
         type: "bool",
         internalType: "bool",
-      },
-      {
-        name: "imageUri",
-        type: "string",
-        internalType: "string",
       },
     ],
     outputs: [],
@@ -2027,6 +2022,18 @@ export const merchStoreAbi = [
       },
       {
         name: "name",
+        type: "string",
+        indexed: false,
+        internalType: "string",
+      },
+      {
+        name: "description",
+        type: "string",
+        indexed: false,
+        internalType: "string",
+      },
+      {
+        name: "sizes",
         type: "string",
         indexed: false,
         internalType: "string",
@@ -2470,9 +2477,10 @@ export const merchStoreAbi = [
   },
 ] as const;
 
-export const merchStoreSampleAddress =
-  "0x63d42003f1f434e29cc075746aa15fdc45baedfa";
-// https://sepolia.basescan.org/address/0x1d05E9C21fe4c538eE74A8Ef315bF6AfC57190C8
 export const merchStoreFactoryAddress =
-  "0x1d05E9C21fe4c538eE74A8Ef315bF6AfC57190C8";
-// https://sepolia.basescan.org/address/0x1d05E9C21fe4c538eE74A8Ef315bF6AfC57190C8
+  "0xb5Da641FAAFEfEE40F83262029B61190A6eda18F";
+// https://sepolia.basescan.org/address/0xb5Da641FAAFEfEE40F83262029B61190A6eda18F
+
+/**
+forge script script/DeployMerchContracts.s.sol:DeployMerchContracts --rpc-url $BASE_SEPOLIA_RPC_URL --private-key $PRIVATE_KEY --broadcast --verify --etherscan-api-key $BASESCAN_API_KEY --verifier-url https://api-sepolia.basescan.org/api --verifier etherscan --chain-id 84532 -vvvv
+ */
