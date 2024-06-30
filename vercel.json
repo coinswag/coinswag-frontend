@@ -1,9 +1,9 @@
 {
 	"rewrites": [
-		{ "source": "/:subdomain(.*)", "destination": "/myshop" },
 		{
 			"source": "/(.*)",
 			"destination": "/index.html"
-		}
+		},
+		{ "source": "/:subdomain(.*)", "destination": "/myshop" },
 	]
 }
