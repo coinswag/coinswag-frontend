@@ -15,6 +15,7 @@ import Settings from "./pages/dashboard/Settings";
 import Orders from "./pages/dashboard/Orders";
 import MyShop from "./pages/my-shop/MyShop";
 import Profile from "./pages/Profile";
+import AllStores from "./pages/AllStores";
 
 const router = createBrowserRouter([
 	{
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
 			{
 				path: "profile",
 				element: <Profile />
+			},
+			{
+				path: "stores",
+				element: <AllStores />
 			}
 		]
 	},

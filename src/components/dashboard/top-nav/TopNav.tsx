@@ -15,7 +15,7 @@ function TopNav() {
     <nav className="dash__nav">
       <div className="logo__container">coinswag</div>
       <h1>My Sweatr Shop</h1>
-      <Button className="ml-auto mr-4 px-4 text-sm" variant="outline">Connect wallet</Button>
+      <Button className="ml-auto mr-4 px-4 text-sm bg-primary text-white font-bold" variant="outline">Connect wallet</Button>
       <UserOptions />
 
       <button onClick={() => setSideBar(!sideBar)} className="menu__btn">

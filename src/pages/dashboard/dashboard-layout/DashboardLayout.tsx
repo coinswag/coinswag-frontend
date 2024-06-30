@@ -1,5 +1,5 @@
 import SideBar from "@/src/components/dashboard/side-bar/SideBar";
-import { Navigate, Outlet, useNavigate } from "react-router-dom";
+import { Navigate, Outlet, useLocation, useNavigate } from "react-router-dom";
 import TopNav from "../../../components/dashboard/top-nav/TopNav";
 import "./style.scss";
 import Cookies from "js-cookie";
@@ -12,6 +12,7 @@ import Loader from "../../../components/loader/linear-loader/Loader";
 function DashboardLayout() {
   const token = Cookies.get("coinswag-token");
   const [isLoading, setIsLoading] = useState(false);
+  const location = useLocation()
 
   const isAuthenticated = token !== undefined;
   const navigate = useNavigate();
@@ -58,11 +59,12 @@ function DashboardLayout() {
   }
 
   if (isAuthenticated && currentUser) {
+    const addFill = location.pathname === "/dashboard/stores"? "fill": "";
     return (
-      <div className="dashboard__layout">
+      <div className={`dashboard__layout `}>
         <TopNav />
         <SideBar />
-        <div className="dashboard__outlet">
+        <div className={`dashboard__outlet ${addFill}`}>
           <Outlet />
         </div>
       </div>

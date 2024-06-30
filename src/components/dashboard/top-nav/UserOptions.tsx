@@ -58,7 +58,7 @@ export function UserOptions() {
 							/>
 						</DropdownMenuShortcut>
 					</DropdownMenuItem>
-					<DropdownMenuItem>All Stores</DropdownMenuItem>
+					<DropdownMenuItem onClick={()=> navigate("/dashboard/stores")}>All Stores</DropdownMenuItem>
 
 			
 				</DropdownMenuGroup>
