@@ -26,14 +26,14 @@ export type Merch = {
 	_id: string;
 };
 
-function MyShop() {
+function MyShop({subdomain}: {subdomain: string}) {
 	const [userMerch, setUserMerch] = useState<Merch[]>([]);
 	const [filteredMerch, setFilteredMerch] = useState<Merch[]>([]);
 	const { fetchData, loading } = useFetch();
 
 	const getUsersProduct = async () => {
 		try {
-			const storeName = "sebastoree";
+			const storeName = subdomain;
 			const merch = (await fetchData(
 				`/store/find?name=${storeName}`
 			)) as ServerResponse<{products: Merch[]}>;

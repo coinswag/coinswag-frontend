@@ -1,6 +1,5 @@
 import { Fragment } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import LandingPage from "./pages/LandingPage";
 import Home from "./pages/dashboard/Home";
 import DashboardLayout from "./pages/dashboard/dashboard-layout/DashboardLayout";
 import AuthLayout from "./pages/auth/auth-layout/AuthLayout";
@@ -13,14 +12,14 @@ import Products from "./pages/dashboard/Products";
 import Customers from "./pages/dashboard/Customers";
 import Settings from "./pages/dashboard/Settings";
 import Orders from "./pages/dashboard/Orders";
-import MyShop from "./pages/my-shop/MyShop";
 import Profile from "./pages/Profile";
 import AllStores from "./pages/AllStores";
+import RootPage from "./pages/RootPage";
 
 const router = createBrowserRouter([
 	{
 		path: "/",
-		element: <LandingPage />,
+		element: <RootPage />,
 	},
 	{
 		path: "/dashboard",
@@ -72,10 +71,6 @@ const router = createBrowserRouter([
 				element: <NewStore />
 			}
 		],
-	},
-	{
-		path: "/myshop",
-		element: <MyShop />
 	}
 ]);
 
