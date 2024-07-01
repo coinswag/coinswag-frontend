@@ -1,20 +1,9 @@
 {
 	"rewrites": [
-	  {
-		 "source": "/:path*",
-		 "has": [
-			{
-			  "type": "host",
-			  "value": "desk.coinswag.shop"
-			}
-		 ],
-		 "destination": "/myshop"
-	  }
-	],
-	"routes": [
-	  {
-		 "src": "/(.*)",
-		 "dest": "/"
-	  }
+		{
+			"source": "/(.*)",
+			"destination": "/"
+		},
+		{ "source": "/:subdomain(.*)", "destination": "/myshop" }
 	]
- }
+}
