@@ -8,6 +8,9 @@ import { ServerResponse } from "@/src/utils/types";
 import Loader from "@/src/components/loader/linear-loader/Loader";
 import useCurrentShop, { IShop } from "@/src/hooks/useCurrentShop";
 
+import { useConnectWallet } from "@web3-onboard/react";
+import useCart, { IMerch } from "@/src/hooks/useCart";
+
 type ProductSize = "XS" | "S" | "M" | "L" | "XL";
 
 export type Merch = {
@@ -30,6 +33,12 @@ function MyShop({ subdomain }: { subdomain: string }) {
 	const [filteredMerch, setFilteredMerch] = useState<Merch[] | null>(null);
 	const { fetchData, loading } = useFetch();
 	const { setCurrentShop } = useCurrentShop();
+	const [{ wallet, connecting }, connect, disconnect] = useConnectWallet();
+	const { setCartItems } = useCart();
+
+	const abbreviateAddress = (address: string) => {
+		return `${address.slice(0, 6)}...${address.slice(-4)}`;
+	};
 
 	const getUsersProduct = async () => {
 		try {
@@ -37,9 +46,11 @@ function MyShop({ subdomain }: { subdomain: string }) {
 			const merch = (await fetchData(
 				`/store/find?name=${storeName}`
 			)) as ServerResponse<IShop>;
-			setCurrentShop(merch.data)
+			setCurrentShop(merch.data);
 			setUserMerch(merch.data.products);
 			setFilteredMerch(merch.data.products);
+			const shopDetails = await fetchData(`/store/${wallet?.accounts[0].address}`) as ServerResponse<IShop>;
+			setCartItems(shopDetails.data.products)
 		} catch (error) {
 			console.log(error);
 		}
@@ -85,8 +96,16 @@ function MyShop({ subdomain }: { subdomain: string }) {
 					<Button
 						variant="outline"
 						className="ml-auto text-semeibold block border border-gray-300 px-4 h-[70%] text-gray-500 rounded-lg text-sm bg-white"
+						disabled={connecting || !!wallet}
+						onClick={() =>
+							wallet ? disconnect({ label: wallet.label }) : connect()
+						}
 					>
-						Connect Wallet
+						{connecting
+							? "connecting"
+							: wallet
+							? abbreviateAddress(wallet.accounts[0].address)
+							: "Connect Wallet"}
 					</Button>
 					<CartSheet />
 				</div>

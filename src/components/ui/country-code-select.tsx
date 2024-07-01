@@ -8,9 +8,9 @@ import {
 } from "@/src/components/ui/select";
 import countryCodes from "@/src/utils/countryCodes.json";
 
-export function SelectScrollable() {
+export function SelectScrollable({handleValueChange}: {handleValueChange: (value: string)=>void}) {
   return (
-    <Select>
+    <Select onValueChange={handleValueChange}>
       <SelectTrigger className="w-[280px]">
         <SelectValue placeholder="Select a timezone" />
       </SelectTrigger>

@@ -25,6 +25,7 @@ import useCurrentStore, { ProductProps } from "@/src/hooks/useCurrentStore";
 import toast from "react-hot-toast";
 import showToast from "@/src/utils/showToast";
 import usePost from "../../../hooks/usePost";
+import { CryptoMerchSelect } from "./select-merch-type";
 
 // Assume you have your contract ABI and address
 
@@ -48,6 +49,7 @@ export function NewProductCard() {
     price: 22n,
     stock: 8n,
     sizes: "M,XL",
+    merchType: "",
   });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -64,6 +66,10 @@ export function NewProductCard() {
     if (e.target.files && e.target.files[0]) {
       setFormData((prev) => ({ ...prev, image: e.target.files![0]! }));
     }
+  };
+
+  const handleMerchTypeChange = (value: string) => {
+    setFormData((prev) => ({ ...prev, merchType: value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -247,6 +253,10 @@ export function NewProductCard() {
               </div>
             )}
           </div>
+          <CryptoMerchSelect
+            onChange={handleMerchTypeChange}
+            value={formData.merchType}
+          />
           <StockList />
           <SheetFooter className="mt-4">
             <Button className="w-full py-6" type="submit" disabled={isLoading}>

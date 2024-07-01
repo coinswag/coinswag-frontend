@@ -23,6 +23,7 @@ interface currentCartState {
 	cartItems: IMerch[];
 	addToCart: (cart: IMerch) => void;
 	removeFromCart: (id: string) => void;
+	setCartItems: (cart: IMerch[])=>void;
 }
 
 const initialState = {
@@ -38,6 +39,7 @@ const useCart = create<currentCartState>()((set) => ({
 			const filteredItems = state.cartItems.filter((item) => item._id !== id);
 			return { cartItems: filteredItems };
 		}),
+		setCartItems: (cartItems)=> set((state)=> ({cartItems: cartItems}))
 }));
 
 export default useCart;

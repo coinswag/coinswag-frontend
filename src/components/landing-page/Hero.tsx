@@ -33,12 +33,10 @@ function Hero() {
           The web3 platform for <br /> community-driven merchandise
         </h1>
         <p>
-          <span className="text-primary">CoinSwag</span> is a Decentalized
-          platform tha enables Crypto cummunities to
+          <span className="text-primary">CoinSwag</span>  is a platform that enables creators and communities to effortlessly create storefronts and sell merch and branded items,
         </p>
         <p>
-          effortlessly create stores, make profits from merchandise with the use
-          of Blockchain technologies.{" "}
+        powered by blockchain technology and crypto payments.{" "}
         </p>
         <button
           className="bg-primary px-14 py-3 rounded-3xl font-bold mt-6 text-sm text-white flex justify-center items-center gap-1 mx-auto"

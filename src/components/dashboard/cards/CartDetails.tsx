@@ -12,6 +12,7 @@ import useCart from "@/src/hooks/useCart";
 import showToast from "@/src/utils/showToast";
 import usePost from "@/src/hooks/usePost";
 import useCurrentShop from "@/src/hooks/useCurrentShop";
+import { useConnectWallet } from "@web3-onboard/react";
 
 export function CartDetails(props: Merch) {
 	const { addToCart } = useCart();
@@ -19,6 +20,8 @@ export function CartDetails(props: Merch) {
 	const elementRef = useRef<HTMLDivElement>(null);
 	const { currentShop } = useCurrentShop();
 	const { postData, loading } = usePost();
+	const [{ wallet }] = useConnectWallet();
+
 	const handleDecreaseBtn = () => {
 		if (quantity == 1) return;
 		setQuantity(quantity - 1);
@@ -34,11 +37,15 @@ export function CartDetails(props: Merch) {
 	};
 
 	const handleClick = async () => {
-		console.log(currentShop)
+		if(!wallet) {
+			return showToast.error("Connect Wallet To Add To Cart");
+		}
+
 		await postData("/cart", {
 			name: currentShop?.name,
 			url: currentShop?.url,
-			tokenId: currentShop?.tokenId,
+			tokenId: currentShop?._id,
+			walletAddress: wallet.accounts[0].address,
 			items : [
 				{
 					productId: props._id,
