@@ -9,7 +9,7 @@ import Loader from "@/src/components/loader/linear-loader/Loader";
 import useCurrentShop, { IShop } from "@/src/hooks/useCurrentShop";
 
 import { useConnectWallet } from "@web3-onboard/react";
-import useCart, { IMerch } from "@/src/hooks/useCart";
+import useCart from "@/src/hooks/useCart";
 
 type ProductSize = "XS" | "S" | "M" | "L" | "XL";
 

@@ -18,7 +18,7 @@ export default function ThirdCardSheet(props: CartSheet) {
 		}, 0);
 		return totalPrice;
 	};
-	const [{ wallet, connecting }, connect, disconnect] = useConnectWallet();
+	const [{ wallet }, connect, disconnect] = useConnectWallet();
 
 	const payWithPayStack =()=> {
 		showToast.loading("Making Payment")

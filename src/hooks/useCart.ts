@@ -39,7 +39,7 @@ const useCart = create<currentCartState>()((set) => ({
 			const filteredItems = state.cartItems.filter((item) => item._id !== id);
 			return { cartItems: filteredItems };
 		}),
-		setCartItems: (cartItems)=> set((state)=> ({cartItems: cartItems}))
+		setCartItems: (cartItems)=> set(()=> ({cartItems: cartItems}))
 }));
 
 export default useCart;
