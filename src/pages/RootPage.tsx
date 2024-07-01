@@ -6,7 +6,7 @@ function RootPage() {
 	const hostname = window.location.hostname;
    console.log(hostname)
 	const parts = hostname.split(".");
-	const isSubdomain = parts.length > 1;
+	const isSubdomain = parts.length > 2;
 	const subdomain = isSubdomain ? parts[0] : null;
 
 	return (
