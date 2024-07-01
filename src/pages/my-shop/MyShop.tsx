@@ -5,9 +5,7 @@ import CartSheet from "@/src/components/dashboard/cards/CartSheet";
 import { useEffect, useState } from "react";
 import useFetch from "@/src/hooks/useFetch";
 import { ServerResponse } from "@/src/utils/types";
-import Loader from "@/src/components/loader/circle-loader/Loader";
-
-
+import { ShopCardLoader } from "@/src/components/loader/ShopCardLoader";
 
 type ProductSize = "XS" | "S" | "M" | "L" | "XL";
 
@@ -26,17 +24,18 @@ export type Merch = {
 	_id: string;
 };
 
-function MyShop({subdomain}: {subdomain: string}) {
+function MyShop({ subdomain }: { subdomain: string }) {
 	const [userMerch, setUserMerch] = useState<Merch[]>([]);
 	const [filteredMerch, setFilteredMerch] = useState<Merch[]>([]);
 	const { fetchData, loading } = useFetch();
 
 	const getUsersProduct = async () => {
 		try {
+			console.log(subdomain);
 			const storeName = subdomain;
 			const merch = (await fetchData(
 				`/store/find?name=${storeName}`
-			)) as ServerResponse<{products: Merch[]}>;
+			)) as ServerResponse<{ products: Merch[] }>;
 			console.log(merch);
 			setUserMerch(merch.data.products);
 			setFilteredMerch(merch.data.products);
@@ -47,11 +46,13 @@ function MyShop({subdomain}: {subdomain: string}) {
 
 	const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const searchValue = e.currentTarget.value.toLowerCase();
-      if(!searchValue) {
-        return setFilteredMerch(userMerch)
-      }
-      const matchingProducts = userMerch.filter(item => item.name.toLowerCase().includes(searchValue))
-      setFilteredMerch(matchingProducts)
+		if (!searchValue) {
+			return setFilteredMerch(userMerch);
+		}
+		const matchingProducts = userMerch.filter((item) =>
+			item.name.toLowerCase().includes(searchValue)
+		);
+		setFilteredMerch(matchingProducts);
 	};
 
 	useEffect(() => {
@@ -87,7 +88,7 @@ function MyShop({subdomain}: {subdomain: string}) {
 				<input
 					className=" rounded-3xl   block border h-full w-full border-gray-500 outline- indent-12 focus:outline-none -z-10 text-gray-700"
 					placeholder="Search Products here"
-               onChange={handleSearchChange}
+					onChange={handleSearchChange}
 				/>
 				<img
 					className="h-[50%] absolute top-1/2 -translate-y-1/2 left-4 invert-[.5]"
@@ -95,9 +96,16 @@ function MyShop({subdomain}: {subdomain: string}) {
 					alt=""
 				/>
 			</div>
-         {loading && <Loader color="#4629FA" />}
 
 			<ShopList products={filteredMerch} />
+			{loading && (
+				<div className="shop__list">
+					<ShopCardLoader />
+					<ShopCardLoader />
+					<ShopCardLoader />
+					<ShopCardLoader />
+				</div>
+			)}
 		</section>
 	);
 }
