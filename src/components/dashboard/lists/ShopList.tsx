@@ -1,21 +1,17 @@
-import ShopCard from "../../shop/ShopCard"
+import ShopCard from "../../shop/ShopCard";
+import { Merch } from "@/src/pages/my-shop/MyShop";
 
-function ShopList() {
-  return (
-    <div className="shop__list">
-      <ShopCard />
-      <ShopCard />
-      <ShopCard />
-      <ShopCard />
-      <ShopCard />
-      <ShopCard />
-      <ShopCard />
-      <ShopCard />
-      <ShopCard />
-      <ShopCard />
-      <ShopCard />
-      <ShopCard />
-    </div>
-  )
+type ShopListPros = {
+	products: Merch[];
+};
+
+function ShopList(props: ShopListPros) {
+	return (
+		<div className="shop__list">
+			{props.products?.map((product, index) => (
+				<ShopCard key={index} {...product} />
+			))}
+		</div>
+	);
 }
-export default ShopList
+export default ShopList;

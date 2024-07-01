@@ -5,11 +5,11 @@ import Cookies from "js-cookie";
 
 const useFetch = () => {
 	const [loading, setLoading] = useState(false);
-	const fetchData = async (url: string) => {
+	const fetchData = async (url: `/${string}`) => {
 		setLoading(true);
 		try {
 			const usertoken = Cookies.get("coinswag-token");
-			const resp = await fetch(`${import.meta.env.VITE_BASE_URL}/${url}`, {
+			const resp = await fetch(`${import.meta.env.VITE_BASE_URL}${url}`, {
 				method: "GET",
 				headers: {
 					"Content-Type": "application/json",

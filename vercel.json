@@ -1,5 +1,8 @@
 {
-   "rewrites": [
-     { "source": "/:subdomain(.*)", "destination": "/myshop" }
-   ]
- }
+	"rewrites": [
+		{
+			"source": "/(.*)",
+			"destination": "/"
+		}
+	]
+}
