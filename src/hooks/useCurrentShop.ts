@@ -1,12 +1,14 @@
 import { create } from "zustand";
+import { IMerch } from "./useCart";
+
 
 export interface IShop {
+	_id: string;
 	name: string;
 	url: string;
-	image: string;
-	description: string;
-	password: string;
-	_id: string;
+	tokenId: string;
+	user: string;
+	products: IMerch[];
 	createdAt: string;
 	updatedAt: string;
 	__v: number;
