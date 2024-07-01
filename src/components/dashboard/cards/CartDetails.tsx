@@ -10,11 +10,18 @@ import { Merch } from "@/src/pages/my-shop/MyShop";
 import { useState, useRef } from "react";
 import useCart from "@/src/hooks/useCart";
 import showToast from "@/src/utils/showToast";
+import usePost from "@/src/hooks/usePost";
+import useCurrentShop from "@/src/hooks/useCurrentShop";
+import { useConnectWallet } from "@web3-onboard/react";
 
 export function CartDetails(props: Merch) {
 	const { addToCart } = useCart();
 	const [quantity, setQuantity] = useState(1);
-	const elementRef = useRef<HTMLDivElement>(null)
+	const elementRef = useRef<HTMLDivElement>(null);
+	const { currentShop } = useCurrentShop();
+	const { postData, loading } = usePost();
+	const [{ wallet }] = useConnectWallet();
+
 	const handleDecreaseBtn = () => {
 		if (quantity == 1) return;
 		setQuantity(quantity - 1);
@@ -26,16 +33,32 @@ export function CartDetails(props: Merch) {
 		useState<(typeof props.sizes)[number]>("M");
 
 	const handleToggle = (value: (typeof props.sizes)[number]) => {
-		console.log(value);
 		setActiveSize(value);
 	};
 
-	const handleClick = () => {
+	const handleClick = async () => {
+		if(!wallet) {
+			return showToast.error("Connect Wallet To Add To Cart");
+		}
+
+		await postData("/cart", {
+			name: currentShop?.name,
+			url: currentShop?.url,
+			tokenId: currentShop?._id,
+			walletAddress: wallet.accounts[0].address,
+			items : [
+				{
+					productId: props._id,
+					quantity: quantity,
+					size: activeSize
+				}
+			]
+		});
 		const newCartItem = { ...props, quantity, size: activeSize };
 		const button = document.getElementById("close-cart") as HTMLButtonElement;
-		button.click()
+		button.click();
 		addToCart(newCartItem);
-		showToast.success("Added to Cart")
+		showToast.success("Added to Cart");
 	};
 
 	return (
@@ -45,7 +68,10 @@ export function CartDetails(props: Merch) {
 					View Merch
 				</button>
 			</DialogTrigger>
-			<DialogContent ref={elementRef} className="w-[65rem] flex justify-between ">
+			<DialogContent
+				ref={elementRef}
+				className="w-[65rem] flex justify-between "
+			>
 				<div className="w-1/2 p-3 items-center flex justify-center">
 					<img
 						className="w-full"
@@ -130,7 +156,11 @@ export function CartDetails(props: Merch) {
 								</h2>
 							</div>
 
-							<Button onClick={handleClick} className="bg-primary h-[105%] px-8">
+							<Button
+								onClick={handleClick}
+								disabled={loading}
+								className="bg-primary h-[105%] px-8 disabled:opacity-50 active:80"
+							>
 								Add to Cart
 							</Button>
 						</div>
