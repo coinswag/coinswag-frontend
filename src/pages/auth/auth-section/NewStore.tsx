@@ -21,6 +21,7 @@ import { ConnectWallet } from "@/src/components/ui/connect-wallet";
 import { parseEventLogs } from "viem";
 import { useConnectWallet } from "@web3-onboard/react";
 import useCurrentStore from "@/src/hooks/useCurrentStore";
+// import { sendTransaction } from "@/src/lib/account";
 
 export interface LoginResponse {
   success: boolean;
@@ -81,6 +82,8 @@ function NewStore() {
 
   const handelSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // sendTransaction();
 
     writeContract({
       address: merchStoreFactoryAddress,

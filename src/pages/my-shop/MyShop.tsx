@@ -2,11 +2,12 @@ import "./style.scss";
 import { Button } from "@/src/components/ui/button";
 import ShopList from "@/src/components/dashboard/lists/ShopList";
 import CartSheet from "@/src/components/dashboard/cards/CartSheet";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import useFetch from "@/src/hooks/useFetch";
 import { ServerResponse } from "@/src/utils/types";
 import { ShopCardLoader } from "@/src/components/loader/ShopCardLoader";
 import { useConnectWallet } from "@web3-onboard/react";
+import useCurrentStore from "@/src/hooks/useCurrentStore";
 
 type ProductSize = "XS" | "S" | "M" | "L" | "XL";
 
@@ -30,12 +31,25 @@ function MyShop({ subdomain }: { subdomain: string }) {
   const [filteredMerch, setFilteredMerch] = useState<Merch[]>([]);
   const { fetchData, loading } = useFetch();
   const [{ wallet, connecting }, connect, disconnect] = useConnectWallet();
+  const { currentStore } = useCurrentStore();
+  console.log("hey! I have a new store: ", currentStore);
 
   const abbreviateAddress = (address: string) => {
     return `${address.slice(0, 6)}...${address.slice(-4)}`;
   };
 
-  const getUsersProduct = async () => {
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const searchValue = e.currentTarget.value.toLowerCase();
+    if (!searchValue) {
+      return setFilteredMerch(userMerch);
+    }
+    const matchingProducts = userMerch.filter((item) =>
+      item.name.toLowerCase().includes(searchValue)
+    );
+    setFilteredMerch(matchingProducts);
+  };
+
+  const getShopMerches = async () => {
     try {
       console.log(subdomain);
       const storeName = subdomain;
@@ -50,20 +64,7 @@ function MyShop({ subdomain }: { subdomain: string }) {
     }
   };
 
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const searchValue = e.currentTarget.value.toLowerCase();
-    if (!searchValue) {
-      return setFilteredMerch(userMerch);
-    }
-    const matchingProducts = userMerch.filter((item) =>
-      item.name.toLowerCase().includes(searchValue)
-    );
-    setFilteredMerch(matchingProducts);
-  };
-
-  useEffect(() => {
-    getUsersProduct();
-  }, []);
+  getShopMerches();
 
   return (
     <section className="my__shop bg-gray-50">
