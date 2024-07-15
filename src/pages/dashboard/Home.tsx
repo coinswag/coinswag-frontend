@@ -4,6 +4,7 @@ import RevenueChart from "@/src/components/dashboard/chart/RevenueChart";
 import WelcomeBoard from "@/src/components/dashboard/WelcomeBoard";
 import { textColorMap } from "@/src/utils/utils";
 import { Fragment } from "react/jsx-runtime";
+import { customerData } from "./Customers";
 
 function Home() {
 	return (
@@ -20,26 +21,26 @@ function Home() {
 					<div className="customer__card py-4 bg-violet-100 px-4 [&>p]:text-sm [&>p]:font-bold rounded-lg mb-2">
 						<p>Customer</p>
 						<p>Wallet</p>
-                  <p>Email</p>
+						<p>Email</p>
 						<p>Date</p>
 						<p>Orders</p>
 						<p>Price</p>
 					</div>
-						<Fragment>
-							{Object.keys(textColorMap).map((key, index) => (
-								<CustomerCard
-									key={index}
-									email="aniokechukwudi7@gmail.com"
-									name="Anioke Sebastian"
-									backgroundColor={key}
-									color={textColorMap[key as keyof typeof textColorMap]}
-									date="23-04-2024"
-									walletAddress="0x7A3b6E44F8C8E58c485b71E1e7BF7f25E4d3C8E9"
-									price={23}
-									orders={7}
-								/>
-							))}
-						</Fragment>
+					<Fragment>
+						{Object.keys(textColorMap).map((key, index) => (
+							<CustomerCard
+								key={index}
+								email={customerData[index].email}
+								name={customerData[index].name}
+								backgroundColor={key}
+								color={textColorMap[key as keyof typeof textColorMap]}
+								date={customerData[index].date}
+								walletAddress={customerData[index].walletAddress}
+								price={customerData[index].price}
+								orders={customerData[index].orders}
+							/>
+						))}
+					</Fragment>
 				</div>
 			</div>
 		</main>

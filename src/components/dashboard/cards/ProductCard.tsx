@@ -15,12 +15,14 @@ import {
 	TableRow,
 } from "@/src/components/ui/table";
 
+// type Sizes = "S" | "M" | "L" | "XL"
+
 type ProductCardProps = {
    image: string;
    name: string; 
    price: number;
    date: string;
-   size: "S" | "M" | "L" | "XL";
+   sizes: string;
    totalSales: number;
 }
 
@@ -38,7 +40,7 @@ export default function ProductCard(props: ProductCardProps) {
 			</TableCell>
 			<TableCell className="font-medium">{props.name}</TableCell>
 			<TableCell>
-				<Badge variant="outline">{props.size}</Badge>
+				<Badge variant="outline">{props.sizes}</Badge>
 			</TableCell>
 			<TableCell>{props.price} USDC</TableCell>
 			<TableCell className="hidden md:table-cell">{props.totalSales}</TableCell>

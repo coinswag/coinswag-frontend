@@ -2,7 +2,7 @@ import { textColorMap } from "@/src/utils/utils";
 import CustomerCard from "@/src/components/dashboard/cards/CustomerCard";
 import { Fragment } from "react/jsx-runtime";
 
-const customerData = [
+export const customerData = [
 	{
 	  name: "Alice Johnson",
 	  walletAddress: "0x1234567890123456789012345678901234567890",

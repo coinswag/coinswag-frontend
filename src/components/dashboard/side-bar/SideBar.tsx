@@ -5,7 +5,7 @@ import "./style.scss";
 // import showToast from "../../../utils/showToast";
 // import Cookies from "js-cookie";
 import ShopAvatar from "./ShopAvatar";
-import useCurrentStore from "@/src/hooks/useCurrentStore";
+// import useCurrentStore from "@/src/hooks/useCurrentStore";
 import useCurrentShop from "@/src/hooks/useCurrentShop";
 import { Link } from "react-router-dom";
 
@@ -55,12 +55,12 @@ function SideBar() {
         title="Orders"
         handleClick={handleNavLinkClick}
       />
-      <SidebarItem
+      {/* <SidebarItem
         link="/dashboard/settings"
         icon="/icons/settings.svg"
         title="Settings"
         handleClick={handleNavLinkClick}
-      />
+      /> */}
       <div className="logout__container">
         <div className="shop__details">
           <ShopAvatar backgroundColor="#4629FA" color="#fff" initial="CN" />

@@ -6,10 +6,10 @@ import { useEffect, useState } from "react";
 import useFetch from "@/src/hooks/useFetch";
 import { ServerResponse } from "@/src/utils/types";
 import Loader from "@/src/components/loader/linear-loader/Loader";
-import useCurrentShop, { IShop } from "@/src/hooks/useCurrentShop";
+// import useCurrentShop, { IShop } from "@/src/hooks/useCurrentShop";
 import { useConnectWallet } from "@web3-onboard/react";
 import useCurrentStore from "@/src/hooks/useCurrentStore";
-import useCart from "@/src/hooks/useCart";
+// import useCart from "@/src/hooks/useCart";
 
 type ProductSize = "XS" | "S" | "M" | "L" | "XL";
 
@@ -32,9 +32,9 @@ function MyShop({ subdomain }: { subdomain: string }) {
   const [userMerch, setUserMerch] = useState<Merch[] | null>(null);
   const [filteredMerch, setFilteredMerch] = useState<Merch[] | null>(null);
   const { fetchData, loading } = useFetch();
-  const { setCurrentShop } = useCurrentShop();
+//   const { setCurrentShop } = useCurrentShop();
   const [{ wallet, connecting }, connect, disconnect] = useConnectWallet();
-  const { setCartItems } = useCart();
+//   const { setCartItems } = useCart();
   const { currentStore } = useCurrentStore();
   console.log("hey! I have a new store: ", currentStore);
 

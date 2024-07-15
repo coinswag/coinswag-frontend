@@ -10,4 +10,9 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./"),
     },
   },
+  optimizeDeps: {
+    esbuildOptions: {
+      tsconfig: "./tsconfig.json"
+    }
+  }
 })
