@@ -22,6 +22,11 @@ import { merchStoreFactoryAbi, merchStoreFactoryAddress } from "@/src/lib/abi";
 import { ConnectWallet } from "@/src/components/ui/connect-wallet";
 import { parseEventLogs } from "viem";
 import { useConnectWallet } from "@web3-onboard/react";
+<<<<<<< HEAD
+=======
+import useCurrentStore from "@/src/hooks/useCurrentStore";
+// import { sendTransaction } from "@/src/lib/account";
+>>>>>>> 5c94b24c7def1558ed164b66d6f36ef7eae27a86
 
 export interface LoginResponse {
   success: boolean;
@@ -82,6 +87,8 @@ function NewStore() {
 
   const handelSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // sendTransaction();
 
     writeContract({
       address: merchStoreFactoryAddress,

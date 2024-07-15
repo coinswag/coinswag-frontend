@@ -51,7 +51,11 @@
     "ethers": "^5.7.2",
     "firebase": "^10.12.2",
     "js-cookie": "^3.0.5",
+<<<<<<< HEAD
     "lucide-react": "^0.408.0",
+=======
+    "permissionless": "^0.1.31",
+>>>>>>> 5c94b24c7def1558ed164b66d6f36ef7eae27a86
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-hot-toast": "^2.4.1",
