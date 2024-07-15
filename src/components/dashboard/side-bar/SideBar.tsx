@@ -6,11 +6,13 @@ import "./style.scss";
 // import Cookies from "js-cookie";
 import ShopAvatar from "./ShopAvatar";
 import useCurrentStore from "@/src/hooks/useCurrentStore";
+import useCurrentShop from "@/src/hooks/useCurrentShop";
+import { Link } from "react-router-dom";
 
 function SideBar() {
   const setSideBar = useCurrentUser((state) => state.setSideBar);
   const currentUser = useCurrentUser((state) => state.currentUser);
-  const { currentStore } = useCurrentStore();
+  const { currentShop } = useCurrentShop();
   // const sideBarState = useCurrentUser((state) => state.sideBar);
   // const navigate = useNavigate();
 
@@ -64,12 +66,14 @@ function SideBar() {
           <ShopAvatar backgroundColor="#4629FA" color="#fff" initial="CN" />
           <div>
             <h2 className="text-sm font-bold text-gray-600 capitalize text-md">
-              {currentStore?.name} shop
+              {currentShop?.name} 
             </h2>
+            <Link target="_blank" to={`https://${currentShop?.name}.coinswag.shop`} >
             <div className="flex items-center text-[.8rem] text-blue-800 underline gap-1">
               view shop{" "}
               <img className="w-4" src="/icons/outside-link.svg" alt="" />
             </div>
+            </Link>
           </div>
         </div>
       </div>

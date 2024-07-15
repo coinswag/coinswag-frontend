@@ -2,9 +2,9 @@ import "./style.scss";
 // import { useState } from "react";
 import useCurrentUser from "../../../hooks/useCurrentUser";
 import { UserOptions } from "./UserOptions";
-import useCurrentStore from "@/src/hooks/useCurrentStore";
 import { Button } from "../../ui/button";
 import { useConnectWallet } from "@web3-onboard/react";
+import useCurrentShop from "@/src/hooks/useCurrentShop";
 
 function TopNav() {
   const [{ wallet, connecting }, connect, disconnect] = useConnectWallet();
@@ -19,11 +19,11 @@ function TopNav() {
   //   setIsPresent(!isPresent);
   // };
   const { setSideBar, sideBar } = useCurrentUser();
-  const { currentStore } = useCurrentStore();
+  const { currentShop } = useCurrentShop();
   return (
     <nav className="dash__nav">
       <div className="logo__container">coinSwag</div>
-      <h1>My {currentStore?.name} Store</h1>
+      <h1 className="capitalize">{currentShop?.name}</h1>
       <Button
         className="ml-auto mr-4 px-4 text-sm bg-primary text-white font-bold"
         variant="outline"

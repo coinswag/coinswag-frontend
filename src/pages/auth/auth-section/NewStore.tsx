@@ -16,11 +16,12 @@ import {
   useWriteContract,
 } from "wagmi";
 
+import useCurrentShop, { IShop } from "@/src/hooks/useCurrentShop";
+
 import { merchStoreFactoryAbi, merchStoreFactoryAddress } from "@/src/lib/abi";
 import { ConnectWallet } from "@/src/components/ui/connect-wallet";
 import { parseEventLogs } from "viem";
 import { useConnectWallet } from "@web3-onboard/react";
-import useCurrentStore from "@/src/hooks/useCurrentStore";
 
 export interface LoginResponse {
   success: boolean;
@@ -44,7 +45,7 @@ function NewStore() {
   const [{ wallet, connecting: connectingWallet }] = useConnectWallet();
 
   const { isDisconnected } = useAccount();
-  const { addStore, setCurrentStore } = useCurrentStore();
+  const { addNewShop, setCurrentShop } = useCurrentShop();
 
   const navigate = useNavigate();
 
@@ -120,7 +121,7 @@ function NewStore() {
         })[0].args;
 
         try {
-          const result = await postData(
+          const result = await postData<IShop>(
             "/store",
             JSON.stringify({
               name: parsedLogArgs.name,
@@ -129,12 +130,13 @@ function NewStore() {
               tokenId: parsedLogArgs.storeId.toString(),
               url: `${newStore.name}.coinswag.shop`,
             })
-          );
+          ) ;
           if (result) {
             console.log("result: ", result);
 
             const store = result.data;
-            setCurrentStore(store);
+            
+            setCurrentShop(store);
 
             console.log("result from backend call: ", result);
             showToast.success("Store created Successfully onChain");
@@ -160,8 +162,8 @@ function NewStore() {
     isDisconnected,
     navigate,
     isConfirming,
-    addStore,
-    setCurrentStore,
+    addNewShop,
+    setCurrentShop,
   ]);
 
   // if (isConfirming) return <div>Loading...</div>;

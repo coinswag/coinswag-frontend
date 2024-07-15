@@ -5,7 +5,9 @@ import Cookies from "js-cookie";
 
 const useFetch = () => {
 	const [loading, setLoading] = useState(false);
-	const fetchData = async (url: `/${string}`) => {
+	async function fetchData<T = any>(
+		url: `/${string}`,
+	): Promise<ServerResponse<T> | void>{
 		setLoading(true);
 		try {
 			const usertoken = Cookies.get("coinswag-token");
@@ -16,9 +18,10 @@ const useFetch = () => {
 					Authorization: `Bearer ${usertoken}`,
 				},
 			});
-			const result = (await resp.json()) as ServerResponse;
+			const result = (await resp.json()) as ServerResponse<T>;
 			if (!resp.ok) {
-				return showToast.error(result.message);
+				showToast.error(result.message);
+				throw new Error(result.message)
 			}
 			return result;
 		} catch (error) {

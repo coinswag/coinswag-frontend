@@ -10,6 +10,8 @@ import {
 import ProductCard from "../cards/ProductCard";
 
 import useCurrentStore from "@/src/hooks/useCurrentStore";
+import ProductSkeleton from "../../loader/ProductSkeleton";
+import useCurrentShop from "@/src/hooks/useCurrentShop";
 
 const products = [
   {
@@ -61,10 +63,12 @@ const products = [
     actions: "Toggle menu",
   },
 ];
-export default function ProductList() {
-  const { currentStore } = useCurrentStore();
 
-  console.log("store: ", currentStore?.storeAddress);
+
+export default function ProductList() {
+  const { currentShop } = useCurrentShop();
+
+  console.log("store: ", currentShop);
 
   return (
     <Card className="mt-4 shadow-none">
@@ -91,13 +95,13 @@ export default function ProductList() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {products.map((item, index) => (
+            {currentShop?.products?.map((item, index) => (
               <ProductCard
                 key={index}
                 name={item.name}
-                totalSales={item.totalSales}
-                size="M"
-                image="/images/merch/sweater.webp"
+                totalSales={0}
+                size={item.sizes.join(",")}
+                image={item.images[0]}
                 price={item.price}
                 date="2023-07-12 10:42 AM"
               />
@@ -105,6 +109,10 @@ export default function ProductList() {
           </TableBody>
         </Table>
       </CardContent>
+      {currentShop!.products!.length <= 0 && <div className="flex flex-col items-center py-5">
+        <img className="w-9 invert-[.3]" src="/icons/empty-tray.svg" alt="" />
+        <p className="text-sm mt-2">No available product</p>
+      </div>}
     </Card>
   );
 }

@@ -10,12 +10,12 @@ function Home() {
 		<main className="p-8">
 			<h1 className="font-bold text-2xl">Your Progress</h1>
 			<WelcomeBoard />
-			<div className="grid grid-cols-chart_container gap-4">
+			<div className="grid grid-cols-chart_container gap-4 mt-8">
 				<RevenueChart />
 				<BestProduct />
 			</div>
 			<div className="mt-8 bg-white rounded-xl py-6 px-5">
-				<h1 className="font-bold text-2xl">Recent Customers</h1>
+				<h1 className="font-bold text-2xl">Recent Orders</h1>
 				<div className="customer__table  mt-4">
 					<div className="customer__card py-4 bg-violet-100 px-4 [&>p]:text-sm [&>p]:font-bold rounded-lg mb-2">
 						<p>Customer</p>

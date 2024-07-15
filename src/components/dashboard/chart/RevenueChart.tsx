@@ -1,76 +1,70 @@
 
-import { useEffect, useRef } from 'react';
-import Chart from 'chart.js/auto';
+import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
 
-const RevenueChart = () => {
-	const chartRef = useRef<HTMLCanvasElement | null>(null);
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/src/components/ui/card"
+import {
+  ChartConfig,
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/src/components/ui/chart"
+const chartData = [
+  { month: "January", desktop: 186 },
+  { month: "February", desktop: 305 },
+  { month: "March", desktop: 237 },
+  { month: "April", desktop: 73 },
+  { month: "May", desktop: 209 },
+  { month: "June", desktop: 214 },
+]
 
-	const createChart = async () => {
-		if (!chartRef.current) {
-			chartRef.current = null;
-		}
+const chartConfig = {
+  desktop: {
+    label: "Desktop",
+    color: "hsl(var(--chart-1))",
+  },
+} satisfies ChartConfig
 
-		const canvas = chartRef.current!;
-		const ctx = canvas.getContext('2d');
-		if (!ctx) return;
-
-		// canvas.style.height = canvasHeight + 'px';
-		canvas.style.width = '100%';
-	
-		new Chart(ctx, {
-			type: 'bar',
-			data: {
-				labels: [
-					'Day 1',
-					'Day 2',
-					'Day 3',
-					'Day 4',
-					'Day 5',
-					'Day 6',
-					'Day 7',
-				],
-				datasets: [
-					{
-						label: 'Your Revenue',
-						data: [12, 19, 3, 17, 28, 24, 7],
-						backgroundColor: '#5187FF',
-						pointStyle: 'circle',
-					}
-				],
-			},
-			options: {
-				responsive: true,
-				plugins: {
-				  legend: {
-					 position: 'top',
-				  },
-				},
-				scales: {
-					y: {
-						grid: {
-							display: false
-						}
-					},
-					x: {
-						grid: {
-							display: false
-						}
-					},
-			  }
-			 },
-		});
-	};
-
-	useEffect(() => {
-		createChart();
-	}, []);
-
-	return (
-		<div className="chart mt-5 bg-white rounded-lg p-6">
-			<h1 className="font-bold text-2xl">Your Revenue</h1>
-			<canvas ref={chartRef}></canvas>
-		</div>
-	);
-};
-
-export default RevenueChart;
+export default function RevenueChart() {
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Monthly Revenue</CardTitle>
+        <CardDescription>January - June 2024</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <ChartContainer config={chartConfig}>
+          <BarChart accessibilityLayer data={chartData}>
+            <CartesianGrid vertical={false} />
+            <XAxis
+              dataKey="month"
+              tickLine={false}
+              tickMargin={10}
+              axisLine={false}
+              tickFormatter={(value) => value.slice(0, 3)}
+            />
+            <ChartTooltip
+              cursor={false}
+              content={<ChartTooltipContent hideLabel />}
+            />
+            <Bar dataKey="desktop" fill="var(--color-desktop)" radius={8} />
+          </BarChart>
+        </ChartContainer>
+      </CardContent>
+      <CardFooter className="flex-col items-start gap-2 text-sm">
+        <div className="flex gap-2 font-medium leading-none">
+          Trending up by 5.2% this month <img src="/icons/trend-up.svg" className="h-4 w-4" />
+        </div>
+        <div className="leading-none text-muted-foreground">
+          Showing total revenue for the last 6 months
+        </div>
+      </CardFooter>
+    </Card>
+  )
+}
